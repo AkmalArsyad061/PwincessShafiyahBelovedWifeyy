@@ -3,175 +3,389 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Special Question For You</title>
+  <title>Special Surprise For You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fff0f3;
-      --card: #ffffff;
-      --accent: #ff4d6d;
-      --text: #2b2d42;
-      --subtext: #8d99ae;
+      --bg-gradient: linear-gradient(135deg, #ffd1dc 0%, #fde2e4 40%, #e2ece9 100%);
+      --card-bg: rgba(255, 255, 255, 0.88);
+      --card-border: rgba(255, 255, 255, 0.95);
+      --accent: #ff597b;
+      --accent-hover: #ff335c;
+      --text: #2d3142;
+      --subtext: #70798c;
+      --note-bg: #fffbf5;
+      --tape: rgba(255, 209, 220, 0.75);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
     }
 
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg-gradient);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 1rem;
+      padding: 2rem 1rem;
       overflow-x: hidden;
-    }
-
-    .card {
-      width: 100%;
-      max-width: 440px;
-      background: var(--card);
-      border-radius: 24px;
-      padding: 2.2rem 1.8rem;
-      box-shadow: 0 12px 35px rgba(255, 77, 109, 0.12);
-      text-align: center;
       position: relative;
     }
 
-    .emoji-header {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      animation: pulse 1.5s infinite ease-in-out;
+    /* Floating background hearts/sparkles */
+    .bg-shape {
+      position: fixed;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      opacity: 0.35;
+      animation: floatUp 8s infinite ease-in-out;
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+      50% { transform: translateY(-25px) rotate(8deg); opacity: 0.5; }
+      100% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+    }
+
+    .main-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid var(--card-border);
+      border-radius: 28px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 16px 40px rgba(255, 107, 129, 0.15), 0 4px 10px rgba(0, 0, 0, 0.03);
+      text-align: center;
+      position: relative;
+      overflow: visible;
+    }
+
+    /* Washi tape decoration */
+    .tape {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 26px;
+      background: var(--tape);
+      border-left: 2px dashed rgba(255, 255, 255, 0.6);
+      border-right: 2px dashed rgba(255, 255, 255, 0.6);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      z-index: 5;
+    }
+
+    .icon-badge {
+      width: 76px;
+      height: 76px;
+      background: #fff0f3;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin: 0 auto 1.2rem auto;
+      box-shadow: 0 6px 18px rgba(255, 89, 123, 0.18);
     }
 
     h1 {
-      font-size: 1.4rem;
+      font-size: 1.45rem;
+      font-weight: 700;
       color: var(--text);
-      margin-bottom: 0.5rem;
+      letter-spacing: -0.3px;
+      margin-bottom: 0.4rem;
     }
 
     p.subtitle {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: var(--subtext);
-      margin-bottom: 2rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.5;
     }
 
+    /* Screen 1: Passcode */
+    .passcode-box {
+      margin: 1rem 0;
+    }
+
+    .passcode-input {
+      width: 100%;
+      max-width: 210px;
+      padding: 12px 16px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 6px;
+      text-align: center;
+      background: #ffffff;
+      border: 2px solid #ffd1dc;
+      border-radius: 14px;
+      color: var(--text);
+      outline: none;
+      transition: all 0.25s ease;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .passcode-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(255, 89, 123, 0.15);
+    }
+
+    .btn-submit {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      box-shadow: 0 6px 20px rgba(255, 89, 123, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .error-msg {
+      color: #e63946;
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-top: 0.8rem;
+      display: none;
+    }
+
+    /* Screen 2: Interaction */
     .btn-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
       position: relative;
-      min-height: 90px;
-    }
-
-    button {
-      border: none;
-      outline: none;
-      font-weight: 600;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
+      min-height: 100px;
+      margin-top: 0.5rem;
     }
 
     .btn-yes {
       background: var(--accent);
       color: white;
-      padding: 12px 28px;
-      font-size: 1rem;
-      box-shadow: 0 4px 15px rgba(255, 77, 109, 0.35);
+      border: none;
+      padding: 14px 34px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255, 89, 123, 0.35);
       z-index: 2;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .btn-no {
-      background: #edf2f4;
-      color: #8d99ae;
+      background: #f1f3f5;
+      color: #868e96;
+      border: none;
       padding: 12px 24px;
-      font-size: 0.95rem;
+      border-radius: 50px;
+      font-size: 0.92rem;
+      font-weight: 600;
       position: absolute;
-      z-index: 1;
       right: 25px;
+      cursor: pointer;
+      z-index: 1;
+      transition: transform 0.2s ease;
     }
 
-    /* Secret Letter */
-    .letter-view {
-      display: none;
-      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* Screen 3: Polaroid & Aesthetic Letter */
+    .polaroid-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      margin: 1.5rem 0;
     }
 
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.92); }
-      to { opacity: 1; transform: scale(1); }
+    .polaroid-frame {
+      background: #ffffff;
+      padding: 12px 12px 18px 12px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transform: rotate(-1.5deg);
+      transition: transform 0.3s ease;
     }
 
-    .note-box {
-      background: #fff8f8;
-      border: 1.5px dashed #ffb3c1;
+    .polaroid-frame:nth-child(even) {
+      transform: rotate(1.5deg);
+    }
+
+    .polaroid-frame:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .polaroid-frame img, 
+    .polaroid-frame video {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      background: #f8f9fa;
+    }
+
+    .polaroid-caption {
+      font-family: 'Caveat', cursive;
+      font-size: 1.25rem;
+      color: #555;
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .letter-paper {
+      background: var(--note-bg);
+      border: 1px dashed #e2d4c0;
       border-radius: 16px;
-      padding: 1.3rem;
+      padding: 1.6rem 1.4rem;
       text-align: left;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      margin-top: 1.2rem;
+    }
+
+    .letter-paper p {
       font-size: 0.95rem;
-      line-height: 1.7;
+      line-height: 1.75;
       color: #4a4e69;
+      margin-bottom: 0.8rem;
+    }
+
+    .letter-sign {
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: right;
       margin-top: 1rem;
     }
 
-    .signature {
-      margin-top: 1rem;
-      text-align: right;
-      font-weight: 700;
-      color: var(--accent);
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <!-- Phase 1: Question -->
-    <div id="quiz-view">
-      <div class="emoji-header" id="dynamic-emoji">🥺</div>
-      <h1 id="question-text">Do you love me?</h1>
-      <p class="subtitle" id="hint-text">Choose wisely, no is not really an option...</p>
+  <!-- Floating Aesthetic Accessories -->
+  <div class="bg-shape" style="top: 8%; left: 10%; font-size: 2.2rem;">🌸</div>
+  <div class="bg-shape" style="bottom: 12%; left: 8%; font-size: 1.8rem; animation-delay: 2s;">✨</div>
+  <div class="bg-shape" style="top: 15%; right: 10%; font-size: 2rem; animation-delay: 4s;">💖</div>
+  <div class="bg-shape" style="bottom: 15%; right: 12%; font-size: 2.4rem; animation-delay: 1.5s;">🌷</div>
 
-      <div class="btn-container">
-        <button class="btn-yes" id="yesBtn" onclick="acceptLove()">Yes! ❤️</button>
-        <button class="btn-no" id="noBtn" onmouseover="dodgeNo()" onclick="dodgeNo()">No 😶</button>
-      </div>
-    </div>
+  <div class="main-wrapper">
+    <div class="card">
+      <div class="tape"></div>
 
-    <!-- Phase 2: Letter Display -->
-    <div class="letter-view" id="letter-view">
-      <div class="emoji-header">🥰💌</div>
-      <h1>I Knew It! ❤️</h1>
-      
-      <div class="note-box">
-        <p><strong>Hai Princess,</strong></p>
-        <p style="margin-top: 0.6rem;">
-          Walaupun kita LDR dan tak selalu dapat bersuara atau jumpa depan-depan, aku nak kau tahu yang rasa sayang dan usaha aku sentiasa penuh untuk kau.
-        </p>
-        <p style="margin-top: 0.6rem;">
-          Kau kata nak tengok something creative yang aku buat sendiri, jadi kod kecil ni aku siapkan khas untuk buat kau tersenyum hari ni. Jaga diri baik-baik kat sana ya!
-        </p>
-        <div class="signature">— From someone who loves you so much</div>
+      <!-- Step 1: Passcode -->
+      <div id="screen-passcode">
+        <div class="icon-badge">🔒</div>
+        <h1>Enter Passcode</h1>
+        <p class="subtitle">Ada kod rahsia sebelum boleh buka surat ni ✨</p>
+        
+        <div class="passcode-box">
+          <input type="password" id="codeInput" class="passcode-input" maxlength="6" placeholder="••••••" />
+        </div>
+        <button class="btn-submit" onclick="verifyPasscode()">Buka Kunci</button>
+        <div class="error-msg" id="errorMsg">Kod salah! Cuba lagi 😜</div>
       </div>
+
+      <!-- Step 2: Interactive Question -->
+      <div id="screen-question" class="hidden">
+        <div class="icon-badge">🥺</div>
+        <h1>Do you love me?</h1>
+        <p class="subtitle">Choose wisely, no is not really an option...</p>
+
+        <div class="btn-container">
+          <button class="btn-yes" id="yesBtn" onclick="acceptLove()">Yes! ❤️</button>
+          <button class="btn-no" id="noBtn" onmouseover="dodgeNo()" onclick="dodgeNo()">No 😶</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Letter & Memories -->
+      <div id="screen-letter" class="hidden">
+        <div class="icon-badge">💌</div>
+        <h1>I Knew It! 🥰</h1>
+        
+        <!-- Polaroid Gallery -->
+        <div class="polaroid-gallery">
+          <!-- Gambar Polaroid -->
+          <div class="polaroid-frame">
+            <img src="gambar1.jpg" alt="Memori Kita" onerror="this.parentElement.style.display='none'">
+            <div class="polaroid-caption">momen kita yang paling comel ✨</div>
+          </div>
+          
+          <!-- Video Polaroid -->
+          <div class="polaroid-frame">
+            <video controls playsinline onerror="this.parentElement.style.display='none'">
+              <source src="video1.mp4" type="video/mp4">
+              Browser anda tidak menyokong paparan video.
+            </video>
+            <div class="polaroid-caption">waktu ni kelakar gila hahah 🎬</div>
+          </div>
+        </div>
+
+        <!-- Handwritten Aesthetic Note -->
+        <div class="letter-paper">
+          <p><strong>Hai Princess,</strong></p>
+          <p>
+            Walaupun kita LDR dan tak selalu dapat bersuara atau jumpa depan-depan, aku nak kau tahu yang rasa sayang dan usaha aku sentiasa penuh untuk kau.
+          </p>
+          <p>
+            Kau kata nak tengok something creative yang aku buat sendiri, jadi kod kecil ni aku siapkan khas untuk simpan kenangan kita. Jaga diri baik-baik kat sana ya!
+          </p>
+          <div class="letter-sign">— Always yours, with love</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <script>
+    const SECRET_CODE = "473415";
+
+    function verifyPasscode() {
+      const enteredCode = document.getElementById('codeInput').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (enteredCode === SECRET_CODE) {
+        document.getElementById('screen-passcode').classList.add('hidden');
+        document.getElementById('screen-question').classList.remove('hidden');
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    // Support 'Enter' key on passcode input
+    document.getElementById('codeInput').addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') {
+        verifyPasscode();
+      }
+    });
+
     let yesScale = 1;
     let noClickCount = 0;
-
     const noTexts = [
       "Are you sure? 🤨",
       "Try again! 😜",
@@ -185,19 +399,15 @@
       const yesBtn = document.getElementById('yesBtn');
       const card = document.querySelector('.card');
 
-      // Expand Yes button
-      yesScale += 0.28;
+      yesScale += 0.3;
       yesBtn.style.transform = `scale(${yesScale})`;
 
-      // Change No text randomly
       noBtn.innerText = noTexts[noClickCount % noTexts.length];
       noClickCount++;
 
-      // Move No button to random positions within the card boundaries
       const cardRect = card.getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
-
-      const maxX = (cardRect.width - btnRect.width) / 2 - 20;
+      const maxX = (cardRect.width - btnRect.width) / 2 - 25;
       const maxY = 70;
 
       const randomX = (Math.random() * (maxX * 2)) - maxX;
@@ -207,8 +417,8 @@
     }
 
     function acceptLove() {
-      document.getElementById('quiz-view').style.display = 'none';
-      document.getElementById('letter-view').style.display = 'block';
+      document.getElementById('screen-question').classList.add('hidden');
+      document.getElementById('screen-letter').classList.remove('hidden');
     }
   </script>
 
