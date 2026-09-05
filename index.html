@@ -2,458 +2,1340 @@
 <html lang="ms">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Letter For You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>A Letter From My Heart • Lavender Dream</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
-      --bg: #f9ede7;
-      --card-bg: rgba(255, 255, 255, 0.92);
-      --accent: #e76f51;
-      --accent-soft: #f4a261;
-      --env-base: #ebd5bf;
-      --env-flap: #debfa2;
-      --env-inside: #d4b290;
-      --wax: #c1121f;
-      --text: #2f3e46;
-      --subtext: #6c757d;
+      --lav-dark: #231934;
+      --lav-deep: #3b2863;
+      --lav-mid: #70559e;
+      --lav-primary: #9d7ec7;
+      --lav-soft: #c4b5fd;
+      --lav-mist: #e9d5ff;
+      --lav-glow: #f3e8ff;
+      --gold-accent: #d4af37;
+      --gold-glow: #fef08a;
+      --rose-tint: #f472b6;
+      --card-bg: rgba(36, 26, 56, 0.72);
+      --glass-border: rgba(233, 213, 255, 0.28);
+      --parchment: #faf7f2;
+      --parchment-border: #e6decb;
+      --text-ink: #2b213a;
+      --text-muted: #6b5c7e;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background: linear-gradient(135deg, #fceade 0%, #fae1dd 50%, #ece4db 100%);
       min-height: 100vh;
+      background: radial-gradient(circle at 50% 20%, #4c3275 0%, #251640 45%, #130a24 100%);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 2rem 1rem;
-      overflow-x: hidden;
+      padding: 1.5rem 1rem;
       position: relative;
     }
 
-    /* Floating ambient sparks */
-    .bg-deco {
+    /* Background Animation Canvas */
+    #ambientCanvas {
       position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
-      user-select: none;
-      opacity: 0.35;
-      animation: float 7s infinite ease-in-out;
-      z-index: 0;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(8deg); }
+      z-index: 1;
     }
 
-    .container {
+    /* Ambient Nebulas */
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+    .orb-1 {
+      width: 450px;
+      height: 450px;
+      background: #8b5cf6;
+      top: -100px;
+      left: -120px;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: #ec4899;
+      bottom: -100px;
+      right: -80px;
+      animation: drift 16s ease-in-out infinite alternate-reverse;
+      opacity: 0.35;
+    }
+    .orb-3 {
+      width: 320px;
+      height: 320px;
+      background: #a855f7;
+      top: 45%;
+      left: 55%;
+      transform: translate(-50%, -50%);
+      opacity: 0.25;
+    }
+
+    @keyframes drift {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(40px) scale(1.15); }
+    }
+
+    /* Main Stage Container */
+    .viewport {
       width: 100%;
-      max-width: 480px;
+      max-width: 520px;
       position: relative;
       z-index: 10;
+      perspective: 1200px;
     }
 
-    /* Passcode Screen Card */
-    .lock-card {
+    /* Glassmorphism Outer Card */
+    .glass-panel {
       background: var(--card-bg);
-      backdrop-filter: blur(14px);
-      border-radius: 28px;
-      padding: 2.8rem 2rem;
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 36px;
+      padding: 2.8rem 2.2rem;
+      box-shadow: 0 25px 60px rgba(10, 4, 25, 0.6), 
+                  0 0 40px rgba(168, 85, 247, 0.25),
+                  inset 0 1px 2px rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: visible;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Sparkle Badge / Ornaments */
+    .lav-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 18px;
+      background: rgba(196, 181, 253, 0.15);
+      border: 1px solid rgba(216, 180, 254, 0.4);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #e9d5ff;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+    }
+
+    .lav-badge span.gem {
+      font-size: 1rem;
+      filter: drop-shadow(0 0 6px #e9d5ff);
+      animation: spinGem 6s linear infinite;
+    }
+    @keyframes spinGem {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Screen 1: Passcode Stage */
+    #stage-passcode {
       text-align: center;
-      box-shadow: 0 16px 36px rgba(231, 111, 81, 0.12), 0 4px 12px rgba(0,0,0,0.03);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      transition: all 0.4s ease;
     }
 
-    .key-icon {
-      font-size: 2.6rem;
-      margin-bottom: 0.8rem;
+    .keyhole-halo {
+      width: 86px;
+      height: 86px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(216, 180, 254, 0.25), rgba(168, 85, 247, 0.1));
+      border: 2px solid rgba(233, 213, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      box-shadow: 0 0 35px rgba(192, 132, 252, 0.45);
+      position: relative;
+      animation: haloPulse 3s infinite ease-in-out;
     }
 
-    h2 {
+    @keyframes haloPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(192, 132, 252, 0.35); }
+      50% { transform: scale(1.06); box-shadow: 0 0 50px rgba(233, 213, 255, 0.6); }
+    }
+
+    h1.hero-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      color: var(--text);
-      margin-bottom: 0.4rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 14px rgba(168, 85, 247, 0.5);
     }
 
-    p.desc {
-      font-size: 0.92rem;
-      color: var(--subtext);
+    h1.hero-title em {
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.8rem;
+      color: #f0abfc;
+      font-style: normal;
+      display: inline-block;
+      margin-left: 4px;
+    }
+
+    p.hero-subtitle {
+      font-size: 0.95rem;
+      color: #d8b4fe;
+      line-height: 1.6;
+      margin-bottom: 2.2rem;
+      font-weight: 300;
+    }
+
+    /* Tactile Digit Inputs */
+    .digits-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
       margin-bottom: 1.8rem;
     }
 
-    .pin-input {
-      width: 100%;
-      max-width: 220px;
-      padding: 12px;
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: 7px;
-      text-align: center;
-      border: 2px solid #ecd3c1;
+    .digit-box {
+      width: 48px;
+      height: 58px;
+      background: rgba(25, 15, 42, 0.85);
+      border: 1.8px solid rgba(196, 181, 253, 0.35);
       border-radius: 14px;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f5d0fe;
+      text-align: center;
+      line-height: 58px;
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4), 0 4px 15px rgba(147, 51, 234, 0.15);
+      transition: all 0.25s ease;
+      caret-color: #f472b6;
+    }
+
+    .digit-box:focus {
       outline: none;
-      background: #ffffff;
-      color: var(--text);
-      transition: 0.25s;
+      border-color: #e879f9;
+      box-shadow: 0 0 20px rgba(232, 121, 249, 0.6), inset 0 0 8px rgba(240, 171, 252, 0.2);
+      transform: translateY(-3px) scale(1.05);
+      background: rgba(43, 23, 72, 0.9);
     }
 
-    .pin-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(231, 111, 81, 0.15);
+    .digit-box.filled {
+      border-color: #c084fc;
+      background: rgba(60, 30, 95, 0.7);
     }
 
-    .btn-unlock {
-      background: var(--accent);
-      color: #ffffff;
+    .hidden-real-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .unlock-action-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+      color: white;
       border: none;
-      padding: 13px 34px;
+      padding: 16px;
       border-radius: 50px;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      margin-top: 1.2rem;
+      letter-spacing: 1px;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(231, 111, 81, 0.3);
-      transition: transform 0.2s, background 0.2s;
+      box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    .btn-unlock:hover {
-      background: #d65a3b;
+    .unlock-action-btn:hover {
       transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(236, 72, 153, 0.6);
+      filter: brightness(1.08);
     }
 
-    .error-text {
-      color: #c1121f;
-      font-size: 0.84rem;
-      margin-top: 0.8rem;
-      font-weight: 500;
+    .unlock-action-btn:active {
+      transform: scale(0.98);
+    }
+
+    .error-toast {
+      color: #fca5a5;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .shake-anim {
+      animation: shake 0.45s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-10px); }
+      40%, 80% { transform: translateX(10px); }
+    }
+
+    /* Screen 2: Interactive Love Choice */
+    #stage-question {
       display: none;
+      text-align: center;
     }
 
-    /* Envelope Stage */
-    .envelope-stage {
+    .avatar-pair {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      animation: bounceHeart 2.2s infinite ease-in-out;
+      filter: drop-shadow(0 0 16px rgba(244, 114, 182, 0.5));
+    }
+    @keyframes bounceHeart {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.08); }
+    }
+
+    .question-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      margin-bottom: 0.6rem;
+      color: #ffffff;
+    }
+
+    .question-hint {
+      color: #c4b5fd;
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .playground-arena {
+      position: relative;
+      min-height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .btn-choice-yes {
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+      color: white;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(236, 72, 153, 0.5);
+      z-index: 5;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+      white-space: nowrap;
+    }
+
+    .btn-choice-no {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      color: #e9d5ff;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: absolute;
+      right: 15px;
+      z-index: 3;
+      transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2), background 0.2s;
+      white-space: nowrap;
+    }
+
+    /* Screen 3: The 3D Royal Lavender Envelope */
+    #stage-envelope {
       display: none;
       flex-direction: column;
       align-items: center;
-      position: relative;
+      padding-top: 1rem;
     }
 
-    .envelope-wrapper {
-      position: relative;
-      width: 330px;
+    .envelope-3d-scene {
+      width: 320px;
       height: 220px;
-      background: var(--env-inside);
-      border-radius: 0 0 12px 12px;
-      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.15);
+      position: relative;
       cursor: pointer;
-      margin-top: 70px;
+      margin: 40px auto 30px;
+      perspective: 1000px;
     }
 
-    /* Flap Top */
-    .flap {
+    .env-body {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #4c3275, #351f56);
+      border-radius: 0 0 16px 16px;
+      position: relative;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 35px rgba(168, 85, 247, 0.3);
+      border: 1px solid rgba(216, 180, 254, 0.4);
+    }
+
+    /* Inside lining with starry pattern */
+    .env-interior {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #5b3e8c 20%, #2f1b4c 90%);
+      border-radius: 0 0 16px 16px;
+      overflow: hidden;
+    }
+
+    /* The Upper Flap (Triangular) */
+    .env-flap-top {
       position: absolute;
       top: 0;
       left: 0;
       width: 0;
       height: 0;
-      border-left: 165px solid transparent;
-      border-right: 165px solid transparent;
-      border-top: 120px solid var(--env-flap);
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 125px solid #5a3c8d;
       transform-origin: top;
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 5;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
     }
 
-    /* Flap Left & Right & Bottom */
-    .env-pocket {
+    /* Bottom & Side Flaps */
+    .env-cover-pocket {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      border-radius: 0 0 12px 12px;
+      border-radius: 0 0 16px 16px;
       overflow: hidden;
-      z-index: 4;
+      z-index: 8;
       pointer-events: none;
     }
 
-    .env-pocket::before {
+    .env-cover-pocket::before {
       content: "";
       position: absolute;
       bottom: 0;
       left: 0;
       width: 0;
       height: 0;
-      border-bottom: 125px solid var(--env-base);
-      border-right: 165px solid transparent;
-      border-left: 165px solid var(--env-base);
+      border-bottom: 125px solid #432b6a;
+      border-right: 160px solid transparent;
+      border-left: 160px solid #432b6a;
     }
 
-    .env-pocket::after {
+    .env-cover-pocket::after {
       content: "";
       position: absolute;
       bottom: 0;
       right: 0;
       width: 0;
       height: 0;
-      border-bottom: 125px solid var(--env-base);
-      border-left: 165px solid transparent;
-      border-right: 165px solid var(--env-base);
+      border-bottom: 125px solid #3c2461;
+      border-left: 160px solid transparent;
+      border-right: 160px solid #3c2461;
     }
 
-    /* Wax Stamp Seal */
-    .wax-seal {
+    /* Golden Wax Seal */
+    .royal-wax-seal {
       position: absolute;
-      top: 95px;
+      top: 105px;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 48px;
-      height: 48px;
-      background: var(--wax);
+      width: 58px;
+      height: 58px;
+      background: radial-gradient(circle at 35% 35%, #ffd700, #b8860b 60%, #785202);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffddd2;
-      font-size: 1.3rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22), inset 0 0 0 2px rgba(255,255,255,0.25);
-      z-index: 6;
+      color: #3b2863;
+      font-size: 1.6rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 
+                  inset 0 0 0 2px rgba(255, 255, 255, 0.6),
+                  0 0 25px rgba(253, 224, 71, 0.6);
+      z-index: 12;
       cursor: pointer;
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .wax-seal:hover {
-      transform: translate(-50%, -50%) scale(1.1);
+    .royal-wax-seal:hover {
+      transform: translate(-50%, -50%) scale(1.12);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 35px rgba(253, 224, 71, 0.9);
     }
 
-    .click-hint {
-      margin-top: 1.4rem;
-      font-size: 0.95rem;
-      color: var(--subtext);
-      letter-spacing: 0.3px;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
-    }
-
-    /* The Unfolded Letter */
-    .letter-sheet {
+    /* Lavender Ribbon Band */
+    .silk-ribbon {
       position: absolute;
-      top: 10px;
-      left: 15px;
-      width: 300px;
-      height: 190px;
-      background: #fffdfa;
+      top: 48%;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: linear-gradient(90deg, rgba(236,72,153,0.8), rgba(192,132,252,0.9), rgba(236,72,153,0.8));
+      transform: translateY(-50%);
+      z-index: 9;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      border-top: 1px dashed rgba(255, 255, 255, 0.5);
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+      transition: opacity 0.5s ease;
+    }
+
+    /* Peek Sheet */
+    .peek-letter-sheet {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      width: 280px;
+      height: 180px;
+      background: var(--parchment);
       border-radius: 8px;
-      padding: 1.2rem;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-      z-index: 3;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 0.6s ease;
-      overflow: hidden;
+      z-index: 6;
+      transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--parchment-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #6b5c7e;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
     }
 
-    /* State: Opened */
-    .envelope-wrapper.open .flap {
+    /* Envelope Opened State */
+    .envelope-3d-scene.opened .env-flap-top {
       transform: rotateX(180deg);
-      z-index: 1;
+      z-index: 5;
     }
 
-    .envelope-wrapper.open .wax-seal {
+    .envelope-3d-scene.opened .royal-wax-seal {
+      transform: translate(-50%, -50%) scale(0);
       opacity: 0;
-      pointer-events: none;
     }
 
-    /* Letter Full Screen Display */
-    .full-letter-view {
+    .envelope-3d-scene.opened .silk-ribbon {
+      opacity: 0;
+    }
+
+    .envelope-3d-scene.opened .peek-letter-sheet {
+      transform: translateY(-90px);
+    }
+
+    .envelope-instruction {
+      margin-top: 2rem;
+      text-align: center;
+      color: #d8b4fe;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      animation: pulseText 2s infinite ease-in-out;
+    }
+    @keyframes pulseText {
+      0%, 100% { opacity: 0.65; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); color: #f0abfc; }
+    }
+
+    /* Screen 4: The Royal Aesthetic Letter Experience */
+    #stage-letter {
       display: none;
-      background: #fffdf9;
-      border-radius: 22px;
-      padding: 2.2rem 1.6rem;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
-      border: 1px solid #fae1dd;
-      margin-top: 1rem;
-      animation: expandUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: letterUnfurl 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    @keyframes expandUp {
-      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    @keyframes letterUnfurl {
+      from { opacity: 0; transform: translateY(35px) scale(0.96); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* Polaroids inside letter */
-    .polaroid-grid {
+    /* Parchment Paper inside Glass */
+    .parchment-scroll {
+      background: var(--parchment);
+      border-radius: 24px;
+      padding: 2.2rem 1.8rem;
+      color: var(--text-ink);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35), inset 0 0 60px rgba(216, 180, 254, 0.2);
+      border: 2px solid #ebe4d5;
+      position: relative;
+    }
+
+    /* Decorative Washi Tape on Parchment */
+    .vintage-washi-tape {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 28px;
+      background: rgba(196, 181, 253, 0.7);
+      border-left: 3px dashed rgba(255, 255, 255, 0.8);
+      border-right: 3px dashed rgba(255, 255, 255, 0.8);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+      z-index: 5;
+    }
+
+    .letter-header-ornament {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px dashed #d8b4fe;
+      padding-bottom: 1.2rem;
+    }
+
+    .letter-date-stamp {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #8b5cf6;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .letter-salutation {
+      font-family: 'Alex Brush', cursive;
+      font-size: 3rem;
+      color: #6d28d9;
+      line-height: 1;
+      margin: 0.4rem 0;
+    }
+
+    .letter-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: #7c3aed;
+    }
+
+    /* LDR Distance Connection Pill */
+    .distance-pill {
+      background: linear-gradient(135deg, rgba(233, 213, 255, 0.6), rgba(245, 208, 254, 0.6));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      color: #4c1d95;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 0.6rem;
+      font-weight: 500;
+    }
+
+    /* Aesthetic Polaroid Gallery */
+    .memories-container {
       display: flex;
       flex-direction: column;
-      gap: 1.4rem;
-      margin: 1.4rem 0;
+      gap: 1.8rem;
+      margin: 1.8rem 0;
     }
 
-    .polaroid {
+    .polaroid-card {
       background: #ffffff;
-      padding: 10px 10px 18px 10px;
-      border-radius: 8px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      padding: 14px 14px 20px 14px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(59, 40, 99, 0.15), 0 2px 6px rgba(0,0,0,0.06);
       transform: rotate(-1.5deg);
-      transition: transform 0.2s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
     }
 
-    .polaroid:nth-child(even) {
-      transform: rotate(1.5deg);
+    .polaroid-card:nth-child(even) {
+      transform: rotate(1.8deg);
     }
 
-    .polaroid img,
-    .polaroid video {
+    .polaroid-card:hover {
+      transform: rotate(0deg) scale(1.02);
+      box-shadow: 0 15px 35px rgba(59, 40, 99, 0.22);
+    }
+
+    /* Cute Corner Pins */
+    .pin-corner {
+      position: absolute;
+      top: -8px;
+      right: 15px;
+      font-size: 1.2rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .polaroid-card img,
+    .polaroid-card video {
       width: 100%;
-      border-radius: 6px;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 8px;
       display: block;
-      background: #eee;
+      background: #f3f0f7;
     }
 
-    .caption {
-      font-family: 'Caveat', cursive;
-      font-size: 1.3rem;
-      color: #555;
+    .polaroid-caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      font-weight: 600;
+      color: #4a2872;
       text-align: center;
-      margin-top: 8px;
+      margin-top: 12px;
+      letter-spacing: 0.3px;
     }
 
-    .letter-body {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: #333;
-      text-align: left;
-      margin-top: 1rem;
-    }
-
-    .handwritten-sign {
-      font-family: 'Caveat', cursive;
-      font-size: 1.6rem;
-      color: var(--accent);
-      text-align: right;
+    /* Letter Main Paragraphs */
+    .letter-body-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      line-height: 1.85;
+      color: #2e1c45;
+      text-align: justify;
       margin-top: 1.2rem;
     }
 
-    .hidden {
-      display: none !important;
+    .letter-body-text p {
+      margin-bottom: 1.1rem;
+      text-indent: 1.5em;
+    }
+
+    .letter-body-text p:first-child {
+      text-indent: 0;
+    }
+
+    .letter-body-text strong {
+      color: #6b21a8;
+      font-weight: 700;
+    }
+
+    /* Interactive "Open When" Sweet Accordion */
+    .sweet-promises-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #581c87;
+      margin: 1.8rem 0 0.8rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .promise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .promise-item {
+      background: rgba(243, 232, 255, 0.7);
+      border: 1px solid #d8b4fe;
+      border-radius: 14px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .promise-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #4c1d95;
+    }
+
+    .promise-content {
+      display: none;
+      font-size: 0.92rem;
+      color: #5b21b6;
+      line-height: 1.6;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(168, 85, 247, 0.3);
+    }
+
+    .promise-item.active .promise-content {
+      display: block;
+      animation: fadeInFast 0.3s ease;
+    }
+
+    .promise-item.active .promise-header span.toggle-icon {
+      transform: rotate(180deg);
+    }
+
+    @keyframes fadeInFast {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Sign-off */
+    .letter-footer-sign {
+      margin-top: 2rem;
+      text-align: right;
+    }
+
+    .sign-calligraphy {
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.8rem;
+      color: #6b21a8;
+      line-height: 1.2;
+    }
+
+    .sign-caption {
+      font-size: 0.82rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #9333ea;
+      font-weight: 600;
+    }
+
+    /* Music Floating Button */
+    .bg-music-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 50px;
+      height: 50px;
+      background: rgba(59, 40, 99, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(216, 180, 254, 0.4);
+      border-radius: 50%;
+      color: #f5d0fe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      transition: all 0.25s ease;
+    }
+
+    .bg-music-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      border-color: #f472b6;
+    }
+
+    .bg-music-toggle.playing {
+      animation: pulseMusic 2s infinite ease-in-out;
+      border-color: #f472b6;
+    }
+    @keyframes pulseMusic {
+      0%, 100% { box-shadow: 0 0 15px rgba(244, 114, 182, 0.4); }
+      50% { box-shadow: 0 0 30px rgba(244, 114, 182, 0.8); }
+    }
+
+    /* Responsiveness */
+    @media (max-width: 480px) {
+      .glass-panel {
+        padding: 2.2rem 1.4rem;
+        border-radius: 28px;
+      }
+      .envelope-3d-scene {
+        width: 270px;
+        height: 180px;
+      }
+      .env-flap-top {
+        border-left: 135px solid transparent;
+        border-right: 135px solid transparent;
+        border-top: 105px solid #5a3c8d;
+      }
+      .env-cover-pocket::before {
+        border-bottom: 105px solid #432b6a;
+        border-right: 135px solid transparent;
+        border-left: 135px solid #432b6a;
+      }
+      .env-cover-pocket::after {
+        border-bottom: 105px solid #3c2461;
+        border-left: 135px solid transparent;
+        border-right: 135px solid #3c2461;
+      }
+      .peek-letter-sheet {
+        width: 235px;
+        height: 150px;
+      }
+      .digit-box {
+        width: 40px;
+        height: 52px;
+        font-size: 1.5rem;
+      }
+      .parchment-scroll {
+        padding: 1.8rem 1.2rem;
+      }
+      .letter-salutation {
+        font-size: 2.5rem;
+      }
+      .letter-body-text {
+        font-size: 1.15rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating Aesthetic Background -->
-  <div class="bg-deco" style="top: 10%; left: 8%; font-size: 2rem;">🕊️</div>
-  <div class="bg-deco" style="bottom: 12%; left: 10%; font-size: 1.8rem; animation-delay: 2s;">🌸</div>
-  <div class="bg-deco" style="top: 14%; right: 10%; font-size: 1.9rem; animation-delay: 4s;">✨</div>
-  <div class="bg-deco" style="bottom: 16%; right: 8%; font-size: 2.2rem; animation-delay: 1.5s;">💌</div>
+  <!-- Background Animated Canvas (Lavender Petals & Stars) -->
+  <canvas id="ambientCanvas"></canvas>
 
-  <div class="container">
-    
-    <!-- PHASE 1: Passcode Verification -->
-    <div class="lock-card" id="lock-screen">
-      <div class="key-icon">🔒</div>
-      <h2>A Secret For You</h2>
-      <p class="desc">Masukkan passcode untuk buka surat khas ni</p>
+  <!-- Ambient Light Orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
 
-      <input type="password" id="pinInput" class="pin-input" maxlength="6" placeholder="••••••" />
-      <br>
-      <button class="btn-unlock" onclick="unlockLetter()">Buka Surat</button>
-      <div class="error-text" id="errorMsg">Passcode salah! Cuba lagi 😜</div>
-    </div>
+  <!-- Music Toggle (Soft Lo-fi / Piano Ambient) -->
+  <div class="bg-music-toggle" id="musicBtn" onclick="toggleAudio()" title="Play Music">
+    🎵
+  </div>
+  <audio id="bgAudio" loop preload="auto">
+    <!-- Royalty-free soft romantic piano/acoustic stream -->
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
+  </audio>
 
-    <!-- PHASE 2: Vintage Envelope Animation -->
-    <div class="envelope-stage" id="envelope-stage">
-      <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
-        <div class="flap"></div>
-        <div class="wax-seal">💌</div>
-        <div class="letter-sheet" id="mini-letter"></div>
-        <div class="env-pocket"></div>
-      </div>
-      <p class="click-hint" id="hint">Tap pada wax seal / sampul untuk buka ✨</p>
-    </div>
+  <div class="viewport">
+    <div class="glass-panel" id="mainGlassPanel">
 
-    <!-- PHASE 3: Unfolded Aesthetic Letter & Memories -->
-    <div class="full-letter-view" id="full-letter">
-      <h2 style="text-align: center; margin-bottom: 0.4rem;">Dearest Princess,</h2>
-      <p style="text-align: center; font-size: 0.88rem; color: var(--subtext);">Koleksi kenangan & pesanan khas dari jauh</p>
-
-      <!-- Polaroid Photo & Video -->
-      <div class="polaroid-grid">
-        <div class="polaroid">
-          <img src="gambar1.jpg" alt="Momen Kita" onerror="this.parentElement.style.display='none'">
-          <div class="caption">senyuman favourite aku selalu ✨</div>
+      <!-- ================= STAGE 1: THE ENCHANTED PASSCODE ================= -->
+      <div id="stage-passcode">
+        <div class="lav-badge">
+          <span class="gem">✦</span> PRIVATE ACCESS ONLY <span class="gem">✦</span>
         </div>
 
-        <div class="polaroid">
-          <video controls playsinline onerror="this.parentElement.style.display='none'">
-            <source src="video1.mp4" type="video/mp4">
-            Browser tak sokong paparan video.
-          </video>
-          <div class="caption">our sweetest little memory 🎬</div>
+        <div class="keyhole-halo">
+          <span>🔒</span>
+        </div>
+
+        <h1 class="hero-title">Lavender <em>Secret</em></h1>
+        <p class="hero-subtitle">Hanya yang tahu kod rahsia cinta kita sahaja dibenarkan membuka surat ini.</p>
+
+        <!-- 6 Digit Tactile Input -->
+        <div class="digits-wrapper" id="pinBoxContainer" onclick="focusPinInput()">
+          <div class="digit-box" data-idx="0"></div>
+          <div class="digit-box" data-idx="1"></div>
+          <div class="digit-box" data-idx="2"></div>
+          <div class="digit-box" data-idx="3"></div>
+          <div class="digit-box" data-idx="4"></div>
+          <div class="digit-box" data-idx="5"></div>
+        </div>
+        <input type="tel" id="hiddenPin" class="hidden-real-input" maxlength="6" autocomplete="off" />
+
+        <button class="unlock-action-btn" onclick="submitPasscode()">
+          <span>BUKA KUNCI SURAT</span>
+          <span>✨</span>
+        </button>
+
+        <div class="error-toast" id="errorToast">
+          <span>⚠️</span> Kod rahsia salah sayang! Cuba lagi ya 💕
         </div>
       </div>
 
-      <!-- Surat Luahan Cinta -->
-      <div class="letter-body">
-        <p>
-          Walaupun sekarang kita dipisahkan oleh jarak dan tak selalu ada peluang nak borak panjang atau jumpa depan-depan, rasa sayang dan kehadiran aku sentiasa ada untuk kau setiap hari.
-        </p>
-        <p style="margin-top: 0.8rem;">
-          Kau pernah kata nak tengok usaha kreatif yang aku buat sendiri tanpa sekadar belanja atau teks biasa—jadi website surat ni aku siapkan khas untuk kau simpan bila rindu. Terima kasih sebab sentiasa ada dan bertahan dengan aku.
-        </p>
+      <!-- ================= STAGE 2: THE INTERACTIVE ROMANCE QUESTION ================= -->
+      <div id="stage-question">
+        <div class="lav-badge">
+          <span class="gem">💜</span> QUICK QUESTION <span class="gem">💜</span>
+        </div>
+
+        <div class="avatar-pair">🥺👉👈</div>
+        <h2 class="question-title">Do you love me, Princess?</h2>
+        <p class="question-hint">Pilih dengan jujur... tapi jalan keluar memang takde 😝</p>
+
+        <div class="playground-arena" id="arena">
+          <button class="btn-choice-yes" id="yesLoveBtn" onclick="onLoveAccepted()">
+            YES, SO MUCH! 💖
+          </button>
+          <button class="btn-choice-no" id="noLoveBtn" onmouseover="fleeButton()" onclick="fleeButton()">
+            No 😶
+          </button>
+        </div>
       </div>
 
-      <div class="handwritten-sign">— Forever and always yours ❤️</div>
-    </div>
+      <!-- ================= STAGE 3: THE ROYAL 3D ENVELOPE ================= -->
+      <div id="stage-envelope">
+        <div class="lav-badge">
+          <span class="gem">💌</span> FOR YOUR EYES ONLY <span class="gem">💌</span>
+        </div>
 
+        <div class="envelope-3d-scene" id="envScene" onclick="unsealEnvelope()">
+          <div class="env-body">
+            <div class="env-interior"></div>
+            <div class="peek-letter-sheet" id="peekSheet">
+              <span style="font-size: 1.6rem; margin-bottom: 4px;">📜</span>
+              <span>Pesanan Khas Buat Awak</span>
+            </div>
+            <div class="env-cover-pocket"></div>
+            <div class="silk-ribbon"></div>
+            <div class="env-flap-top"></div>
+            <div class="royal-wax-seal" id="royalWax">⚜️</div>
+          </div>
+        </div>
+
+        <div class="envelope-instruction">
+          <span>✨</span> Sentuh Wax Seal emas untuk membuka ikatan surat <span>✨</span>
+        </div>
+      </div>
+
+      <!-- ================= STAGE 4: THE AESTHETIC PARCHMENT LETTER ================= -->
+      <div id="stage-letter">
+        
+        <div class="parchment-scroll">
+          <div class="vintage-washi-tape"></div>
+
+          <!-- Letter Heading -->
+          <div class="letter-header-ornament">
+            <div class="letter-date-stamp">Special Edition • Dedicated To You</div>
+            <div class="letter-salutation">My Dearest Princess,</div>
+            <div class="letter-subtitle">"Walau sejauh mana jarak memisahkan, hati aku tak pernah berganjak."</div>
+            
+            <div>
+              <div class="distance-pill">
+                <span>📍 LDR Connection:</span>
+                <strong>Always Close at Heart 🌸</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid Memories Section -->
+          <div class="memories-container">
+            <!-- Polaroid 1: Photo -->
+            <div class="polaroid-card">
+              <div class="pin-corner">💜</div>
+              <img src="gambar1.jpg" alt="Memori Kita" onerror="this.parentElement.style.display='none'">
+              <div class="polaroid-caption">"Senyuman awak yang sentiasa jadi pengubat rindu..." ✨</div>
+            </div>
+
+            <!-- Polaroid 2: Video -->
+            <div class="polaroid-card">
+              <div class="pin-corner">🎬</div>
+              <video controls playsinline onerror="this.parentElement.style.display='none'">
+                <source src="video1.mp4" type="video/mp4">
+                Pelayar anda tidak menyokong video ini.
+              </video>
+              <div class="polaroid-caption">"Momen paling comel yang aku repeat berpuluh kali hahah" 💕</div>
+            </div>
+          </div>
+
+          <!-- Heartfelt Letter Content -->
+          <div class="letter-body-text">
+            <p>
+              Mungkin sekarang kita terhalang dengan jarak, masa, dan keadaan yang buat kita tak boleh nak borak selalu atau tengok muka depan-depan. Tapi aku nak kau tahu satu benda: <strong>rasa sayang, rindu, dan usaha aku tak pernah berkurang walau sedikit pun.</strong>
+            </p>
+            <p>
+              Bila kau kata nak tengok <em>effort</em> yang lebih kreatif selain belanja atau sembang biasa, aku terfikir nak bina satu laman khas bertema lavender yang lembut ni. Tiap baris kod dan setiap sudut estetik ni aku siapkan ikhlas dari hati untuk ukir senyuman kat muka kau hari ni.
+            </p>
+            <p>
+              Terima kasih sebab sentiasa ada, sentiasa sabar dan bertahan dengan aku. Jaga kesihatan, jangan tinggal makan, dan ingat yang aku sentiasa sokong dan sayangkan kau dari jauh.
+            </p>
+          </div>
+
+          <!-- Interactive Sweet Promises (Open When...) -->
+          <div class="sweet-promises-title">
+            <span>✨</span> Sentuh Pesanan Rahsia Kita <span>✨</span>
+          </div>
+
+          <div class="promise-list">
+            <div class="promise-item" onclick="togglePromise(this)">
+              <div class="promise-header">
+                <span>🌙 Buka bila awak rasa rindu sangat...</span>
+                <span class="toggle-icon">▾</span>
+              </div>
+              <div class="promise-content">
+                Tengok langit malam atau dengar lagu favourite kita. Ingat yang kita pandang bulan yang sama, dan rindu aku kat awak tak pernah berhenti.
+              </div>
+            </div>
+
+            <div class="promise-item" onclick="togglePromise(this)">
+              <div class="promise-header">
+                <span>🌧️ Buka bila hari awak rasa berat / penat...</span>
+                <span class="toggle-icon">▾</span>
+              </div>
+              <div class="promise-content">
+                Tarik nafas dalam-dalam ya sayang. Awak dah buat yang terbaik hari ni. Rehat secukupnya, esok kita tempuh lagi sama-sama. Abang sentiasa bangga dengan awak.
+              </div>
+            </div>
+
+            <div class="promise-item" onclick="togglePromise(this)">
+              <div class="promise-header">
+                <span>🧁 Buka bila kita dapat jumpa nanti...</span>
+                <span class="toggle-icon">▾</span>
+              </div>
+              <div class="promise-content">
+                Janji pertama: Kita jalan-jalan santai, makan benda sedap favourite awak, dan borak sampai lupa waktu tanpa ada skrin telefon yang pisahkan kita!
+              </div>
+            </div>
+          </div>
+
+          <!-- Signature Section -->
+          <div class="letter-footer-sign">
+            <div class="sign-caption">Yours lovingly,</div>
+            <div class="sign-calligraphy">Always Yours ❤️</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
   </div>
 
   <script>
-    const CORRECT_PIN = "473415";
+    /* ================= 1. AMBIENT CANVAS (Falling Lavender Petals & Star Dust) ================= */
+    const canvas = document.getElementById('ambientCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let petals = [];
 
-    function unlockLetter() {
-      const pin = document.getElementById('pinInput').value;
-      const error = document.getElementById('errorMsg');
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
-      if (pin === CORRECT_PIN) {
-        document.getElementById('lock-screen').style.display = 'none';
-        document.getElementById('envelope-stage').style.display = 'flex';
-      } else {
-        error.style.display = 'block';
+    class LavenderPetal {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * -height;
+        this.size = Math.random() * 8 + 5;
+        this.speedY = Math.random() * 1.2 + 0.6;
+        this.speedX = Math.random() * 1.5 - 0.75;
+        this.rotation = Math.random() * 360;
+        this.rotSpeed = Math.random() * 1.5 - 0.75;
+        this.opacity = Math.random() * 0.6 + 0.25;
+        // Soft violet/lavender/pink tones
+        const colors = [
+          'rgba(216, 180, 254, ',
+          'rgba(192, 132, 252, ',
+          'rgba(244, 114, 182, ',
+          'rgba(233, 213, 255, '
+        ];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += Math.sin(this.y * 0.01) + this.speedX * 0.5;
+        this.rotation += this.rotSpeed;
+        if (this.y > height + 20) {
+          this.reset();
+          this.y = -10;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.fillStyle = this.color + this.opacity + ')';
+        ctx.beginPath();
+        // Gentle organic petal shape
+        ctx.ellipse(0, 0, this.size * 0.6, this.size * 1.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
       }
     }
 
-    // Support Enter Key
-    document.getElementById('pinInput').addEventListener('keyup', function(e) {
-      if (e.key === 'Enter') unlockLetter();
+    for (let i = 0; i < 45; i++) {
+      petals.push(new LavenderPetal());
+    }
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, width, height);
+      for (let p of petals) {
+        p.update();
+        p.draw();
+      }
+      requestAnimationFrame(animateCanvas);
+    }
+    animateCanvas();
+
+    /* ================= 2. AUDIO TOGGLE ================= */
+    let isPlaying = false;
+    const audio = document.getElementById('bgAudio');
+    const musicBtn = document.getElementById('musicBtn');
+
+    function toggleAudio() {
+      if (!isPlaying) {
+        audio.play().then(() => {
+          isPlaying = true;
+          musicBtn.classList.add('playing');
+          musicBtn.innerHTML = '✨';
+        }).catch(() => {});
+      } else {
+        audio.pause();
+        isPlaying = false;
+        musicBtn.classList.remove('playing');
+        musicBtn.innerHTML = '🎵';
+      }
+    }
+
+    /* ================= 3. PASSCODE LOGIC (473415) ================= */
+    const CORRECT_CODE = "473415";
+    const hiddenInput = document.getElementById('hiddenPin');
+    const digitBoxes = document.querySelectorAll('.digit-box');
+    const errorToast = document.getElementById('errorToast');
+    const pinBoxContainer = document.getElementById('pinBoxContainer');
+
+    function focusPinInput() {
+      hiddenInput.focus();
+    }
+
+    hiddenInput.addEventListener('input', (e) => {
+      const val = e.target.value.replace(/\D/g, '').slice(0, 6);
+      e.target.value = val;
+      
+      digitBoxes.forEach((box, i) => {
+        if (val[i]) {
+          box.innerText = "•";
+          box.classList.add('filled');
+        } else {
+          box.innerText = "";
+          box.classList.remove('filled');
+        }
+      });
+
+      if (val.length === 6) {
+        setTimeout(submitPasscode, 250);
+      }
     });
 
-    function openEnvelope() {
-      const env = document.getElementById('envelope');
-      const miniLetter = document.getElementById('mini-letter');
-      const hint = document.getElementById('hint');
+    hiddenInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') submitPasscode();
+    });
 
-      // Animasi flap terbuka & surat naik ke atas
-      env.classList.add('open');
-      miniLetter.style.transform = 'translateY(-90px)';
-      hint.innerText = "Membuka surat... ✨";
+    function submitPasscode() {
+      const entered = hiddenInput.value;
+      if (entered === CORRECT_CODE) {
+        errorToast.style.opacity = '0';
+        // Trigger celebratory confetti burst
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#c084fc', '#f472b6', '#e9d5ff', '#ffd700']
+        });
 
-      // Lepas animasi sampul selesai, paparkan surat penuh
+        // Try playing music automatically upon unlock
+        if (!isPlaying) {
+          toggleAudio();
+        }
+
+        setTimeout(() => {
+          document.getElementById('stage-passcode').style.display = 'none';
+          document.getElementById('stage-question').style.display = 'block';
+        }, 600);
+      } else {
+        errorToast.style.opacity = '1';
+        pinBoxContainer.classList.add('shake-anim');
+        setTimeout(() => {
+          pinBoxContainer.classList.remove('shake-anim');
+          hiddenInput.value = '';
+          digitBoxes.forEach(b => {
+            b.innerText = '';
+            b.classList.remove('filled');
+          });
+          hiddenInput.focus();
+        }, 500);
+      }
+    }
+
+    // Auto-focus on click anywhere on passcode stage
+    document.getElementById('stage-passcode').addEventListener('click', focusPinInput);
+
+    /* ================= 4. INTERACTIVE "NO" DODGE BUTTON ================= */
+    let yesScale = 1;
+    let noCounter = 0;
+    const funnyTexts = [
+      "Eh salah tekan ke? 🤨",
+      "Cuba lagi sekali! 😜",
+      "Mana boleh lari! 🏃💨",
+      "Button ni rosak kot! 😝",
+      "Tengok Yes tu dah besar! 🥰"
+    ];
+
+    function fleeButton() {
+      const noBtn = document.getElementById('noLoveBtn');
+      const yesBtn = document.getElementById('yesLoveBtn');
+      const arena = document.getElementById('arena');
+
+      yesScale += 0.32;
+      yesBtn.style.transform = `scale(${yesScale})`;
+
+      noBtn.innerText = funnyTexts[noCounter % funnyTexts.length];
+      noCounter++;
+
+      const arenaRect = arena.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = (arenaRect.width - btnRect.width) / 2 - 20;
+      const maxY = 75;
+
+      const randX = (Math.random() * (maxX * 2)) - maxX;
+      const randY = (Math.random() * (maxY * 2)) - maxY;
+
+      noBtn.style.transform = `translate(${randX}px, ${randY}px)`;
+    }
+
+    function onLoveAccepted() {
+      confetti({
+        particleCount: 120,
+        spread: 90,
+        origin: { y: 0.65 },
+        colors: ['#a855f7', '#ec4899', '#f0abfc', '#d4af37']
+      });
+
       setTimeout(() => {
-        document.getElementById('envelope-stage').style.display = 'none';
-        document.getElementById('full-letter').style.display = 'block';
-      }, 1000);
+        document.getElementById('stage-question').style.display = 'none';
+        const envStage = document.getElementById('stage-envelope');
+        envStage.style.display = 'flex';
+      }, 500);
+    }
+
+    /* ================= 5. ROYAL ENVELOPE UNSEALING ================= */
+    function unsealEnvelope() {
+      const scene = document.getElementById('envScene');
+      if (scene.classList.contains('opened')) return;
+
+      scene.classList.add('opened');
+
+      confetti({
+        particleCount: 70,
+        spread: 60,
+        origin: { y: 0.5 },
+        colors: ['#ffd700', '#f472b6', '#c084fc']
+      });
+
+      // Smooth transition into full aesthetic parchment letter
+      setTimeout(() => {
+        document.getElementById('stage-envelope').style.display = 'none';
+        document.getElementById('stage-letter').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1200);
+    }
+
+    /* ================= 6. SWEET PROMISES ACCORDION ================= */
+    function togglePromise(elem) {
+      elem.classList.toggle('active');
     }
   </script>
 
