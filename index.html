@@ -3,29 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>A Letter From My Heart • Lavender Dream</title>
+  <title>Khas Untuk Pwincesss Shafiyah 🌸</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Gaegu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
-      --lav-dark: #231934;
-      --lav-deep: #3b2863;
-      --lav-mid: #70559e;
-      --lav-primary: #9d7ec7;
-      --lav-soft: #c4b5fd;
-      --lav-mist: #e9d5ff;
-      --lav-glow: #f3e8ff;
-      --gold-accent: #d4af37;
-      --gold-glow: #fef08a;
-      --rose-tint: #f472b6;
-      --card-bg: rgba(36, 26, 56, 0.72);
-      --glass-border: rgba(233, 213, 255, 0.28);
-      --parchment: #faf7f2;
-      --parchment-border: #e6decb;
-      --text-ink: #2b213a;
-      --text-muted: #6b5c7e;
+      --bg-lavender: #f1ebf9;
+      --lav-dark: #372549;
+      --lav-mid: #774c9e;
+      --lav-soft: #dcd0f0;
+      --lav-card: #faf7fd;
+      --washi-1: #d8c3ee;
+      --washi-2: #fbcfe8;
+      --tape-gingham: repeating-linear-gradient(45deg, rgba(209,183,237,0.7) 0, rgba(209,183,237,0.7) 10px, rgba(255,255,255,0.7) 10px, rgba(255,255,255,0.7) 20px);
+      --font-hand: 'Caveat', cursive;
+      --font-doodle: 'Gaegu', cursive;
     }
 
     * {
@@ -36,1259 +30,688 @@
     }
 
     body {
+      background-color: var(--bg-lavender);
+      background-image: 
+        radial-gradient(#cbb4e7 1px, transparent 1px),
+        radial-gradient(#cbb4e7 1px, #f1ebf9 1px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
       min-height: 100vh;
-      background: radial-gradient(circle at 50% 20%, #4c3275 0%, #251640 45%, #130a24 100%);
-      color: #fff;
+      color: var(--lav-dark);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1.5rem 1rem;
-      position: relative;
+      padding: 2rem 1rem;
+      overflow-x: hidden;
     }
 
-    /* Background Animation Canvas */
-    #ambientCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Ambient Nebulas */
-    .glow-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(90px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.5;
-    }
-    .orb-1 {
-      width: 450px;
-      height: 450px;
-      background: #8b5cf6;
-      top: -100px;
-      left: -120px;
-      animation: drift 14s ease-in-out infinite alternate;
-    }
-    .orb-2 {
-      width: 400px;
-      height: 400px;
-      background: #ec4899;
-      bottom: -100px;
-      right: -80px;
-      animation: drift 16s ease-in-out infinite alternate-reverse;
-      opacity: 0.35;
-    }
-    .orb-3 {
-      width: 320px;
-      height: 320px;
-      background: #a855f7;
-      top: 45%;
-      left: 55%;
-      transform: translate(-50%, -50%);
-      opacity: 0.25;
-    }
-
-    @keyframes drift {
-      0% { transform: translateY(0) scale(1); }
-      100% { transform: translateY(40px) scale(1.15); }
-    }
-
-    /* Main Stage Container */
-    .viewport {
+    .book-container {
       width: 100%;
-      max-width: 520px;
+      max-width: 470px;
       position: relative;
-      z-index: 10;
-      perspective: 1200px;
     }
 
-    /* Glassmorphism Outer Card */
-    .glass-panel {
-      background: var(--card-bg);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 1.5px solid var(--glass-border);
-      border-radius: 36px;
-      padding: 2.8rem 2.2rem;
-      box-shadow: 0 25px 60px rgba(10, 4, 25, 0.6), 
-                  0 0 40px rgba(168, 85, 247, 0.25),
-                  inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    /* Sticker Accessories Floating Outside */
+    .sticker-deco {
+      position: absolute;
+      pointer-events: none;
+      z-index: 20;
+      user-select: none;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+
+    /* Common Card Craft Base */
+    .craft-page {
+      background: var(--lav-card);
+      border-radius: 20px;
+      padding: 2.2rem 1.6rem;
+      box-shadow: 0 16px 36px rgba(55, 37, 73, 0.12), 0 4px 12px rgba(0,0,0,0.04);
+      border: 2px solid #ffffff;
       position: relative;
-      overflow: visible;
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Sparkle Badge / Ornaments */
-    .lav-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 18px;
-      background: rgba(196, 181, 253, 0.15);
-      border: 1px solid rgba(216, 180, 254, 0.4);
-      border-radius: 50px;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #e9d5ff;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+    /* Washi Tape Strips */
+    .tape-top {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 28px;
+      background: var(--tape-gingham);
+      opacity: 0.85;
+      border-left: 2px dashed rgba(255,255,255,0.7);
+      border-right: 2px dashed rgba(255,255,255,0.7);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+      z-index: 5;
     }
 
-    .lav-badge span.gem {
-      font-size: 1rem;
-      filter: drop-shadow(0 0 6px #e9d5ff);
-      animation: spinGem 6s linear infinite;
-    }
-    @keyframes spinGem {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .tape-corner {
+      position: absolute;
+      width: 65px;
+      height: 20px;
+      background: rgba(220, 208, 240, 0.85);
+      transform: rotate(-35deg);
+      top: -6px;
+      left: -12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      z-index: 5;
     }
 
-    /* Screen 1: Passcode Stage */
-    #stage-passcode {
+    /* Screen 1: The Scrapbook Lock */
+    #lock-page {
       text-align: center;
     }
 
-    .keyhole-halo {
-      width: 86px;
-      height: 86px;
-      margin: 0 auto 1.5rem;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(216, 180, 254, 0.25), rgba(168, 85, 247, 0.1));
-      border: 2px solid rgba(233, 213, 255, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      box-shadow: 0 0 35px rgba(192, 132, 252, 0.45);
-      position: relative;
-      animation: haloPulse 3s infinite ease-in-out;
-    }
-
-    @keyframes haloPulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(192, 132, 252, 0.35); }
-      50% { transform: scale(1.06); box-shadow: 0 0 50px rgba(233, 213, 255, 0.6); }
-    }
-
-    h1.hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.5px;
-      text-shadow: 0 2px 14px rgba(168, 85, 247, 0.5);
-    }
-
-    h1.hero-title em {
-      font-family: 'Alex Brush', cursive;
-      font-size: 2.8rem;
-      color: #f0abfc;
-      font-style: normal;
+    .stamp-badge {
       display: inline-block;
-      margin-left: 4px;
+      border: 2px dashed var(--lav-mid);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: var(--font-doodle);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--lav-mid);
+      transform: rotate(-3deg);
+      margin-bottom: 1.2rem;
+      background: #fdfafd;
     }
 
-    p.hero-subtitle {
-      font-size: 0.95rem;
-      color: #d8b4fe;
-      line-height: 1.6;
-      margin-bottom: 2.2rem;
-      font-weight: 300;
+    h1.scrapbook-title {
+      font-family: var(--font-hand);
+      font-size: 2.4rem;
+      line-height: 1.1;
+      color: var(--lav-dark);
+      margin-bottom: 0.4rem;
     }
 
-    /* Tactile Digit Inputs */
-    .digits-wrapper {
+    p.scrapbook-subtitle {
+      font-size: 0.9rem;
+      color: #6a587e;
+      margin-bottom: 2rem;
+    }
+
+    .code-grid {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-bottom: 1.8rem;
+      gap: 8px;
+      margin-bottom: 2rem;
+      cursor: pointer;
     }
 
-    .digit-box {
-      width: 48px;
-      height: 58px;
-      background: rgba(25, 15, 42, 0.85);
-      border: 1.8px solid rgba(196, 181, 253, 0.35);
-      border-radius: 14px;
+    .code-slot {
+      width: 44px;
+      height: 54px;
+      background: #ffffff;
+      border: 2px solid var(--lav-soft);
+      border-radius: 12px;
+      font-family: var(--font-hand);
       font-size: 1.8rem;
       font-weight: 700;
-      color: #f5d0fe;
-      text-align: center;
-      line-height: 58px;
-      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4), 0 4px 15px rgba(147, 51, 234, 0.15);
-      transition: all 0.25s ease;
-      caret-color: #f472b6;
+      color: var(--lav-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+      transition: all 0.2s;
     }
 
-    .digit-box:focus {
-      outline: none;
-      border-color: #e879f9;
-      box-shadow: 0 0 20px rgba(232, 121, 249, 0.6), inset 0 0 8px rgba(240, 171, 252, 0.2);
-      transform: translateY(-3px) scale(1.05);
-      background: rgba(43, 23, 72, 0.9);
+    .code-slot.active {
+      border-color: var(--lav-mid);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(119, 76, 158, 0.2);
     }
 
-    .digit-box.filled {
-      border-color: #c084fc;
-      background: rgba(60, 30, 95, 0.7);
+    .code-slot.filled {
+      border-color: #a78bfa;
+      background: #fdf8ff;
     }
 
-    .hidden-real-input {
+    .real-code-input {
       position: absolute;
       opacity: 0;
       pointer-events: none;
     }
 
-    .unlock-action-btn {
-      width: 100%;
-      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+    .btn-scrapbook-unlock {
+      background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
       color: white;
       border: none;
-      padding: 16px;
+      font-family: var(--font-doodle);
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 12px 32px;
       border-radius: 50px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: 1px;
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 8px 18px rgba(167, 139, 250, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .unlock-action-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 40px rgba(236, 72, 153, 0.6);
-      filter: brightness(1.08);
+    .btn-scrapbook-unlock:active {
+      transform: scale(0.97);
     }
 
-    .unlock-action-btn:active {
-      transform: scale(0.98);
-    }
-
-    .error-toast {
-      color: #fca5a5;
-      font-size: 0.88rem;
+    .error-hint {
+      font-size: 0.82rem;
+      color: #e11d48;
       margin-top: 1rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+      display: none;
     }
 
-    .shake-anim {
-      animation: shake 0.45s ease-in-out;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-10px); }
-      40%, 80% { transform: translateX(10px); }
-    }
-
-    /* Screen 2: Interactive Love Choice */
-    #stage-question {
+    /* Screen 2: Interactive Usik */
+    #question-page {
       display: none;
       text-align: center;
     }
 
-    .avatar-pair {
+    .sticker-meme {
       font-size: 3.5rem;
-      margin-bottom: 1rem;
-      animation: bounceHeart 2.2s infinite ease-in-out;
-      filter: drop-shadow(0 0 16px rgba(244, 114, 182, 0.5));
+      margin-bottom: 0.5rem;
+      animation: wiggle 2s infinite ease-in-out;
     }
-    @keyframes bounceHeart {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-10px) scale(1.08); }
-    }
-
-    .question-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.9rem;
-      margin-bottom: 0.6rem;
-      color: #ffffff;
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
     }
 
-    .question-hint {
-      color: #c4b5fd;
-      font-size: 0.95rem;
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-    }
-
-    .playground-arena {
+    .playground-box {
       position: relative;
       min-height: 120px;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.2rem;
+      margin-top: 1.8rem;
     }
 
-    .btn-choice-yes {
-      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+    .btn-yes-craft {
+      background: #a855f7;
       color: white;
       border: none;
-      padding: 16px 36px;
+      padding: 13px 30px;
       border-radius: 50px;
-      font-size: 1.15rem;
+      font-family: var(--font-doodle);
+      font-size: 1.3rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(236, 72, 153, 0.5);
+      box-shadow: 0 6px 16px rgba(168, 85, 247, 0.35);
       z-index: 5;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
-      white-space: nowrap;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .btn-choice-no {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1.5px solid rgba(255, 255, 255, 0.25);
-      color: #e9d5ff;
-      padding: 14px 28px;
+    .btn-no-craft {
+      background: #ece7f4;
+      border: 1.5px dashed #bba9d4;
+      color: #7b6993;
+      padding: 11px 22px;
       border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
+      font-family: var(--font-doodle);
+      font-size: 1.15rem;
       position: absolute;
-      right: 15px;
-      z-index: 3;
-      transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2), background 0.2s;
-      white-space: nowrap;
+      right: 20px;
+      cursor: pointer;
+      z-index: 2;
+      transition: transform 0.2s ease;
     }
 
-    /* Screen 3: The 3D Royal Lavender Envelope */
-    #stage-envelope {
+    /* Screen 3: Scrapbook Content (Photos, Videos, Real Note) */
+    #content-page {
       display: none;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 1rem;
+      animation: flipIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    .envelope-3d-scene {
-      width: 320px;
-      height: 220px;
-      position: relative;
-      cursor: pointer;
-      margin: 40px auto 30px;
-      perspective: 1000px;
-    }
-
-    .env-body {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(145deg, #4c3275, #351f56);
-      border-radius: 0 0 16px 16px;
-      position: relative;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 35px rgba(168, 85, 247, 0.3);
-      border: 1px solid rgba(216, 180, 254, 0.4);
-    }
-
-    /* Inside lining with starry pattern */
-    .env-interior {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, #5b3e8c 20%, #2f1b4c 90%);
-      border-radius: 0 0 16px 16px;
-      overflow: hidden;
-    }
-
-    /* The Upper Flap (Triangular) */
-    .env-flap-top {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 160px solid transparent;
-      border-right: 160px solid transparent;
-      border-top: 125px solid #5a3c8d;
-      transform-origin: top;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 10;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
-    }
-
-    /* Bottom & Side Flaps */
-    .env-cover-pocket {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 0 0 16px 16px;
-      overflow: hidden;
-      z-index: 8;
-      pointer-events: none;
-    }
-
-    .env-cover-pocket::before {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-bottom: 125px solid #432b6a;
-      border-right: 160px solid transparent;
-      border-left: 160px solid #432b6a;
-    }
-
-    .env-cover-pocket::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 0;
-      height: 0;
-      border-bottom: 125px solid #3c2461;
-      border-left: 160px solid transparent;
-      border-right: 160px solid #3c2461;
-    }
-
-    /* Golden Wax Seal */
-    .royal-wax-seal {
-      position: absolute;
-      top: 105px;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 58px;
-      height: 58px;
-      background: radial-gradient(circle at 35% 35%, #ffd700, #b8860b 60%, #785202);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #3b2863;
-      font-size: 1.6rem;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 
-                  inset 0 0 0 2px rgba(255, 255, 255, 0.6),
-                  0 0 25px rgba(253, 224, 71, 0.6);
-      z-index: 12;
-      cursor: pointer;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .royal-wax-seal:hover {
-      transform: translate(-50%, -50%) scale(1.12);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 35px rgba(253, 224, 71, 0.9);
-    }
-
-    /* Lavender Ribbon Band */
-    .silk-ribbon {
-      position: absolute;
-      top: 48%;
-      left: 0;
-      width: 100%;
-      height: 20px;
-      background: linear-gradient(90deg, rgba(236,72,153,0.8), rgba(192,132,252,0.9), rgba(236,72,153,0.8));
-      transform: translateY(-50%);
-      z-index: 9;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      border-top: 1px dashed rgba(255, 255, 255, 0.5);
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
-      transition: opacity 0.5s ease;
-    }
-
-    /* Peek Sheet */
-    .peek-letter-sheet {
-      position: absolute;
-      top: 15px;
-      left: 20px;
-      width: 280px;
-      height: 180px;
-      background: var(--parchment);
-      border-radius: 8px;
-      z-index: 6;
-      transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      border: 1px solid var(--parchment-border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #6b5c7e;
-      font-family: 'Playfair Display', serif;
-      font-size: 0.95rem;
-    }
-
-    /* Envelope Opened State */
-    .envelope-3d-scene.opened .env-flap-top {
-      transform: rotateX(180deg);
-      z-index: 5;
-    }
-
-    .envelope-3d-scene.opened .royal-wax-seal {
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-    }
-
-    .envelope-3d-scene.opened .silk-ribbon {
-      opacity: 0;
-    }
-
-    .envelope-3d-scene.opened .peek-letter-sheet {
-      transform: translateY(-90px);
-    }
-
-    .envelope-instruction {
-      margin-top: 2rem;
-      text-align: center;
-      color: #d8b4fe;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      animation: pulseText 2s infinite ease-in-out;
-    }
-    @keyframes pulseText {
-      0%, 100% { opacity: 0.65; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.02); color: #f0abfc; }
-    }
-
-    /* Screen 4: The Royal Aesthetic Letter Experience */
-    #stage-letter {
-      display: none;
-      animation: letterUnfurl 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes letterUnfurl {
-      from { opacity: 0; transform: translateY(35px) scale(0.96); }
+    @keyframes flipIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* Parchment Paper inside Glass */
-    .parchment-scroll {
-      background: var(--parchment);
-      border-radius: 24px;
-      padding: 2.2rem 1.8rem;
-      color: var(--text-ink);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35), inset 0 0 60px rgba(216, 180, 254, 0.2);
-      border: 2px solid #ebe4d5;
+    .scrapbook-header {
+      text-align: center;
+      border-bottom: 2px dashed #dac7ee;
+      padding-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
       position: relative;
     }
 
-    /* Decorative Washi Tape on Parchment */
-    .vintage-washi-tape {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 130px;
-      height: 28px;
-      background: rgba(196, 181, 253, 0.7);
-      border-left: 3px dashed rgba(255, 255, 255, 0.8);
-      border-right: 3px dashed rgba(255, 255, 255, 0.8);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-      z-index: 5;
-    }
-
-    .letter-header-ornament {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px dashed #d8b4fe;
-      padding-bottom: 1.2rem;
-    }
-
-    .letter-date-stamp {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #8b5cf6;
-      font-weight: 600;
+    .scrapbook-greeting {
+      font-family: var(--font-hand);
+      font-size: 2.8rem;
+      line-height: 1;
+      color: #6b21a8;
       margin-bottom: 4px;
     }
 
-    .letter-salutation {
-      font-family: 'Alex Brush', cursive;
-      font-size: 3rem;
-      color: #6d28d9;
-      line-height: 1;
-      margin: 0.4rem 0;
-    }
-
-    .letter-subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-style: italic;
+    .scrapbook-tagline {
+      font-family: var(--font-doodle);
+      font-size: 1.15rem;
       color: #7c3aed;
     }
 
-    /* LDR Distance Connection Pill */
-    .distance-pill {
-      background: linear-gradient(135deg, rgba(233, 213, 255, 0.6), rgba(245, 208, 254, 0.6));
-      border: 1px solid rgba(168, 85, 247, 0.3);
-      padding: 8px 16px;
-      border-radius: 50px;
-      font-size: 0.82rem;
-      color: #4c1d95;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 0.6rem;
-      font-weight: 500;
-    }
-
-    /* Aesthetic Polaroid Gallery */
-    .memories-container {
+    /* Overlapping Photo & Video Collage Grid */
+    .collage-grid {
       display: flex;
       flex-direction: column;
-      gap: 1.8rem;
+      gap: 1.6rem;
       margin: 1.8rem 0;
     }
 
-    .polaroid-card {
+    .polaroid-snap {
       background: #ffffff;
-      padding: 14px 14px 20px 14px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(59, 40, 99, 0.15), 0 2px 6px rgba(0,0,0,0.06);
-      transform: rotate(-1.5deg);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 10px 10px 18px 10px;
+      border-radius: 4px;
+      box-shadow: 0 8px 18px rgba(55, 37, 73, 0.1);
       position: relative;
+      transition: transform 0.3s ease;
     }
 
-    .polaroid-card:nth-child(even) {
-      transform: rotate(1.8deg);
-    }
+    .polaroid-snap:nth-child(1) { transform: rotate(-2deg); }
+    .polaroid-snap:nth-child(2) { transform: rotate(2.5deg); }
+    .polaroid-snap:nth-child(3) { transform: rotate(-1.5deg); }
+    .polaroid-snap:nth-child(4) { transform: rotate(1.8deg); }
 
-    .polaroid-card:hover {
+    .polaroid-snap:hover {
       transform: rotate(0deg) scale(1.02);
-      box-shadow: 0 15px 35px rgba(59, 40, 99, 0.22);
+      z-index: 10;
     }
 
-    /* Cute Corner Pins */
-    .pin-corner {
+    /* Cute Corner Pins & Mini Tape */
+    .mini-pin {
       position: absolute;
       top: -8px;
-      right: 15px;
-      font-size: 1.2rem;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      right: 14px;
+      font-size: 1.3rem;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+      z-index: 3;
     }
 
-    .polaroid-card img,
-    .polaroid-card video {
+    .mini-tape-corner {
+      position: absolute;
+      top: -8px;
+      left: 12px;
+      width: 48px;
+      height: 18px;
+      background: rgba(220, 208, 240, 0.8);
+      transform: rotate(-12deg);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .polaroid-snap img,
+    .polaroid-snap video {
       width: 100%;
-      max-height: 380px;
+      max-height: 350px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 2px;
       display: block;
-      background: #f3f0f7;
+      background: #f5f1fa;
     }
 
-    .polaroid-caption {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
-      font-style: italic;
-      font-weight: 600;
+    .polaroid-hand-caption {
+      font-family: var(--font-hand);
+      font-size: 1.35rem;
+      font-weight: 700;
       color: #4a2872;
       text-align: center;
-      margin-top: 12px;
-      letter-spacing: 0.3px;
+      margin-top: 10px;
+      letter-spacing: 0.2px;
     }
 
-    /* Letter Main Paragraphs */
-    .letter-body-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
+    /* The Authentic Letter Container */
+    .paper-letter-box {
+      background: #ffffff;
+      border: 1.5px solid #ebdff8;
+      border-radius: 12px;
+      padding: 1.6rem 1.4rem;
+      margin-top: 1.5rem;
+      position: relative;
+      box-shadow: inset 0 0 20px rgba(220, 208, 240, 0.2);
+    }
+
+    .paper-letter-box p {
+      font-size: 0.94rem;
       line-height: 1.85;
-      color: #2e1c45;
-      text-align: justify;
-      margin-top: 1.2rem;
+      color: #3b284c;
+      margin-bottom: 1rem;
     }
 
-    .letter-body-text p {
-      margin-bottom: 1.1rem;
-      text-indent: 1.5em;
-    }
-
-    .letter-body-text p:first-child {
-      text-indent: 0;
-    }
-
-    .letter-body-text strong {
+    .paper-letter-box p strong {
       color: #6b21a8;
-      font-weight: 700;
     }
 
-    /* Interactive "Open When" Sweet Accordion */
-    .sweet-promises-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: #581c87;
-      margin: 1.8rem 0 0.8rem;
-      text-align: center;
+    /* Directives Stickers (Open When) */
+    .directives-wrapper {
+      margin-top: 1.8rem;
+    }
+
+    .directives-title {
+      font-family: var(--font-doodle);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #6b21a8;
+      margin-bottom: 0.8rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
+      gap: 6px;
     }
 
-    .promise-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 1.5rem;
-    }
-
-    .promise-item {
-      background: rgba(243, 232, 255, 0.7);
-      border: 1px solid #d8b4fe;
-      border-radius: 14px;
-      padding: 12px 16px;
+    .directive-card {
+      background: #fdfaff;
+      border: 1px dashed #c4b5fd;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      padding: 12px 14px;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: background 0.2s;
     }
 
-    .promise-header {
+    .directive-card.open {
+      background: #f3e8ff;
+      border-style: solid;
+    }
+
+    .directive-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #4c1d95;
+      font-family: var(--font-doodle);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #581c87;
     }
 
-    .promise-content {
+    .directive-body {
       display: none;
-      font-size: 0.92rem;
-      color: #5b21b6;
+      font-size: 0.9rem;
+      color: #4c1d95;
       line-height: 1.6;
       margin-top: 8px;
       padding-top: 8px;
-      border-top: 1px dashed rgba(168, 85, 247, 0.3);
+      border-top: 1px dotted #c4b5fd;
     }
 
-    .promise-item.active .promise-content {
+    .directive-card.open .directive-body {
       display: block;
-      animation: fadeInFast 0.3s ease;
     }
 
-    .promise-item.active .promise-header span.toggle-icon {
-      transform: rotate(180deg);
-    }
-
-    @keyframes fadeInFast {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Sign-off */
-    .letter-footer-sign {
+    .sign-box {
       margin-top: 2rem;
       text-align: right;
     }
 
-    .sign-calligraphy {
-      font-family: 'Alex Brush', cursive;
-      font-size: 2.8rem;
+    .sign-text {
+      font-family: var(--font-hand);
+      font-size: 2.3rem;
       color: #6b21a8;
-      line-height: 1.2;
+      line-height: 1;
     }
 
-    .sign-caption {
-      font-size: 0.82rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #9333ea;
-      font-weight: 600;
+    .sign-label {
+      font-family: var(--font-doodle);
+      font-size: 0.95rem;
+      color: #8b5cf6;
+      margin-top: 4px;
     }
 
-    /* Music Floating Button */
-    .bg-music-toggle {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 50px;
-      height: 50px;
-      background: rgba(59, 40, 99, 0.8);
-      backdrop-filter: blur(10px);
-      border: 1.5px solid rgba(216, 180, 254, 0.4);
-      border-radius: 50%;
-      color: #f5d0fe;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      cursor: pointer;
-      z-index: 100;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-      transition: all 0.25s ease;
+    .shake {
+      animation: shake 0.4s ease-in-out;
     }
-
-    .bg-music-toggle:hover {
-      transform: scale(1.1) rotate(15deg);
-      border-color: #f472b6;
-    }
-
-    .bg-music-toggle.playing {
-      animation: pulseMusic 2s infinite ease-in-out;
-      border-color: #f472b6;
-    }
-    @keyframes pulseMusic {
-      0%, 100% { box-shadow: 0 0 15px rgba(244, 114, 182, 0.4); }
-      50% { box-shadow: 0 0 30px rgba(244, 114, 182, 0.8); }
-    }
-
-    /* Responsiveness */
-    @media (max-width: 480px) {
-      .glass-panel {
-        padding: 2.2rem 1.4rem;
-        border-radius: 28px;
-      }
-      .envelope-3d-scene {
-        width: 270px;
-        height: 180px;
-      }
-      .env-flap-top {
-        border-left: 135px solid transparent;
-        border-right: 135px solid transparent;
-        border-top: 105px solid #5a3c8d;
-      }
-      .env-cover-pocket::before {
-        border-bottom: 105px solid #432b6a;
-        border-right: 135px solid transparent;
-        border-left: 135px solid #432b6a;
-      }
-      .env-cover-pocket::after {
-        border-bottom: 105px solid #3c2461;
-        border-left: 135px solid transparent;
-        border-right: 135px solid #3c2461;
-      }
-      .peek-letter-sheet {
-        width: 235px;
-        height: 150px;
-      }
-      .digit-box {
-        width: 40px;
-        height: 52px;
-        font-size: 1.5rem;
-      }
-      .parchment-scroll {
-        padding: 1.8rem 1.2rem;
-      }
-      .letter-salutation {
-        font-size: 2.5rem;
-      }
-      .letter-body-text {
-        font-size: 1.15rem;
-      }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Animated Canvas (Lavender Petals & Stars) -->
-  <canvas id="ambientCanvas"></canvas>
+  <div class="book-container">
+    
+    <!-- Floating Lavender & Sparkle Stickers -->
+    <div class="sticker-deco" style="top: -20px; left: -10px; font-size: 2rem;">🌸</div>
+    <div class="sticker-deco" style="top: -15px; right: -8px; font-size: 1.8rem;">✨</div>
+    <div class="sticker-deco" style="bottom: -15px; right: 10px; font-size: 2.2rem;">🌷</div>
+    <div class="sticker-deco" style="bottom: -10px; left: 8px; font-size: 1.8rem;">💜</div>
 
-  <!-- Ambient Light Orbs -->
-  <div class="glow-orb orb-1"></div>
-  <div class="glow-orb orb-2"></div>
-  <div class="glow-orb orb-3"></div>
+    <!-- ================= STAGE 1: LOCK / PASSCODE ================= -->
+    <div class="craft-page" id="lock-page">
+      <div class="tape-top"></div>
+      
+      <div class="stamp-badge">CONFIDENTIAL • NO. 473415</div>
+      <h1 class="scrapbook-title">Private Scrapbook</h1>
+      <p class="scrapbook-subtitle">Khas untuk Adinda Nur Amiera Shafiyah sahaja 🔐</p>
 
-  <!-- Music Toggle (Soft Lo-fi / Piano Ambient) -->
-  <div class="bg-music-toggle" id="musicBtn" onclick="toggleAudio()" title="Play Music">
-    🎵
-  </div>
-  <audio id="bgAudio" loop preload="auto">
-    <!-- Royalty-free soft romantic piano/acoustic stream -->
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
-  </audio>
+      <div class="code-grid" id="codeGrid" onclick="focusInput()">
+        <div class="code-slot" data-index="0"></div>
+        <div class="code-slot" data-index="1"></div>
+        <div class="code-slot" data-index="2"></div>
+        <div class="code-slot" data-index="3"></div>
+        <div class="code-slot" data-index="4"></div>
+        <div class="code-slot" data-index="5"></div>
+      </div>
+      <input type="tel" id="codeInput" class="real-code-input" maxlength="6" autocomplete="off">
 
-  <div class="viewport">
-    <div class="glass-panel" id="mainGlassPanel">
+      <button class="btn-scrapbook-unlock" onclick="verifyPin()">Buka Scrapbook ✨</button>
+      <div class="error-hint" id="errorHint">Passcode salah la sayang! Cuba lagi 😜</div>
+    </div>
 
-      <!-- ================= STAGE 1: THE ENCHANTED PASSCODE ================= -->
-      <div id="stage-passcode">
-        <div class="lav-badge">
-          <span class="gem">✦</span> PRIVATE ACCESS ONLY <span class="gem">✦</span>
-        </div>
+    <!-- ================= STAGE 2: QUESTION INTERLUDE ================= -->
+    <div class="craft-page" id="question-page">
+      <div class="tape-corner"></div>
 
-        <div class="keyhole-halo">
-          <span>🔒</span>
-        </div>
+      <div class="sticker-meme">🥺👉👈</div>
+      <h1 class="scrapbook-title">Do you love me, pwincesss?</h1>
+      <p class="scrapbook-subtitle" style="font-family: var(--font-doodle); font-size: 1.15rem;">
+        Jangan mengalah awal tau, try la tekan No kalau dapat 😝
+      </p>
 
-        <h1 class="hero-title">Lavender <em>Secret</em></h1>
-        <p class="hero-subtitle">Hanya yang tahu kod rahsia cinta kita sahaja dibenarkan membuka surat ini.</p>
+      <div class="playground-box" id="playBox">
+        <button class="btn-yes-craft" id="yesBtn" onclick="openScrapbook()">Confirm Sayang! 💖</button>
+        <button class="btn-no-craft" id="noBtn" onmouseover="dodgeNo()" onclick="dodgeNo()">No 😶</button>
+      </div>
+    </div>
 
-        <!-- 6 Digit Tactile Input -->
-        <div class="digits-wrapper" id="pinBoxContainer" onclick="focusPinInput()">
-          <div class="digit-box" data-idx="0"></div>
-          <div class="digit-box" data-idx="1"></div>
-          <div class="digit-box" data-idx="2"></div>
-          <div class="digit-box" data-idx="3"></div>
-          <div class="digit-box" data-idx="4"></div>
-          <div class="digit-box" data-idx="5"></div>
-        </div>
-        <input type="tel" id="hiddenPin" class="hidden-real-input" maxlength="6" autocomplete="off" />
+    <!-- ================= STAGE 3: SCRAPBOOK MEMORIES & LETTER ================= -->
+    <div class="craft-page" id="content-page">
+      <div class="tape-top"></div>
 
-        <button class="unlock-action-btn" onclick="submitPasscode()">
-          <span>BUKA KUNCI SURAT</span>
-          <span>✨</span>
-        </button>
-
-        <div class="error-toast" id="errorToast">
-          <span>⚠️</span> Kod rahsia salah sayang! Cuba lagi ya 💕
-        </div>
+      <div class="scrapbook-header">
+        <div class="scrapbook-greeting">Hai Pwincesss Shafiyah 🌸</div>
+        <div class="scrapbook-tagline">"Koleksi kenangan & pesanan rasmi bila kita jauh"</div>
       </div>
 
-      <!-- ================= STAGE 2: THE INTERACTIVE ROMANCE QUESTION ================= -->
-      <div id="stage-question">
-        <div class="lav-badge">
-          <span class="gem">💜</span> QUICK QUESTION <span class="gem">💜</span>
-        </div>
-
-        <div class="avatar-pair">🥺👉👈</div>
-        <h2 class="question-title">Do you love me, Princess?</h2>
-        <p class="question-hint">Pilih dengan jujur... tapi jalan keluar memang takde 😝</p>
-
-        <div class="playground-arena" id="arena">
-          <button class="btn-choice-yes" id="yesLoveBtn" onclick="onLoveAccepted()">
-            YES, SO MUCH! 💖
-          </button>
-          <button class="btn-choice-no" id="noLoveBtn" onmouseover="fleeButton()" onclick="fleeButton()">
-            No 😶
-          </button>
-        </div>
-      </div>
-
-      <!-- ================= STAGE 3: THE ROYAL 3D ENVELOPE ================= -->
-      <div id="stage-envelope">
-        <div class="lav-badge">
-          <span class="gem">💌</span> FOR YOUR EYES ONLY <span class="gem">💌</span>
-        </div>
-
-        <div class="envelope-3d-scene" id="envScene" onclick="unsealEnvelope()">
-          <div class="env-body">
-            <div class="env-interior"></div>
-            <div class="peek-letter-sheet" id="peekSheet">
-              <span style="font-size: 1.6rem; margin-bottom: 4px;">📜</span>
-              <span>Pesanan Khas Buat Awak</span>
-            </div>
-            <div class="env-cover-pocket"></div>
-            <div class="silk-ribbon"></div>
-            <div class="env-flap-top"></div>
-            <div class="royal-wax-seal" id="royalWax">⚜️</div>
-          </div>
-        </div>
-
-        <div class="envelope-instruction">
-          <span>✨</span> Sentuh Wax Seal emas untuk membuka ikatan surat <span>✨</span>
-        </div>
-      </div>
-
-      <!-- ================= STAGE 4: THE AESTHETIC PARCHMENT LETTER ================= -->
-      <div id="stage-letter">
+      <!-- Multiple Photos & Video Collage -->
+      <div class="collage-grid">
         
-        <div class="parchment-scroll">
-          <div class="vintage-washi-tape"></div>
-
-          <!-- Letter Heading -->
-          <div class="letter-header-ornament">
-            <div class="letter-date-stamp">Special Edition • Dedicated To You</div>
-            <div class="letter-salutation">My Dearest Princess,</div>
-            <div class="letter-subtitle">"Walau sejauh mana jarak memisahkan, hati aku tak pernah berganjak."</div>
-            
-            <div>
-              <div class="distance-pill">
-                <span>📍 LDR Connection:</span>
-                <strong>Always Close at Heart 🌸</strong>
-              </div>
-            </div>
-          </div>
-
-          <!-- Polaroid Memories Section -->
-          <div class="memories-container">
-            <!-- Polaroid 1: Photo -->
-            <div class="polaroid-card">
-              <div class="pin-corner">💜</div>
-              <img src="gambar1.jpg" alt="Memori Kita" onerror="this.parentElement.style.display='none'">
-              <div class="polaroid-caption">"Senyuman awak yang sentiasa jadi pengubat rindu..." ✨</div>
-            </div>
-
-            <!-- Polaroid 2: Video -->
-            <div class="polaroid-card">
-              <div class="pin-corner">🎬</div>
-              <video controls playsinline onerror="this.parentElement.style.display='none'">
-                <source src="video1.mp4" type="video/mp4">
-                Pelayar anda tidak menyokong video ini.
-              </video>
-              <div class="polaroid-caption">"Momen paling comel yang aku repeat berpuluh kali hahah" 💕</div>
-            </div>
-          </div>
-
-          <!-- Heartfelt Letter Content -->
-          <div class="letter-body-text">
-            <p>
-              Mungkin sekarang kita terhalang dengan jarak, masa, dan keadaan yang buat kita tak boleh nak borak selalu atau tengok muka depan-depan. Tapi aku nak kau tahu satu benda: <strong>rasa sayang, rindu, dan usaha aku tak pernah berkurang walau sedikit pun.</strong>
-            </p>
-            <p>
-              Bila kau kata nak tengok <em>effort</em> yang lebih kreatif selain belanja atau sembang biasa, aku terfikir nak bina satu laman khas bertema lavender yang lembut ni. Tiap baris kod dan setiap sudut estetik ni aku siapkan ikhlas dari hati untuk ukir senyuman kat muka kau hari ni.
-            </p>
-            <p>
-              Terima kasih sebab sentiasa ada, sentiasa sabar dan bertahan dengan aku. Jaga kesihatan, jangan tinggal makan, dan ingat yang aku sentiasa sokong dan sayangkan kau dari jauh.
-            </p>
-          </div>
-
-          <!-- Interactive Sweet Promises (Open When...) -->
-          <div class="sweet-promises-title">
-            <span>✨</span> Sentuh Pesanan Rahsia Kita <span>✨</span>
-          </div>
-
-          <div class="promise-list">
-            <div class="promise-item" onclick="togglePromise(this)">
-              <div class="promise-header">
-                <span>🌙 Buka bila awak rasa rindu sangat...</span>
-                <span class="toggle-icon">▾</span>
-              </div>
-              <div class="promise-content">
-                Tengok langit malam atau dengar lagu favourite kita. Ingat yang kita pandang bulan yang sama, dan rindu aku kat awak tak pernah berhenti.
-              </div>
-            </div>
-
-            <div class="promise-item" onclick="togglePromise(this)">
-              <div class="promise-header">
-                <span>🌧️ Buka bila hari awak rasa berat / penat...</span>
-                <span class="toggle-icon">▾</span>
-              </div>
-              <div class="promise-content">
-                Tarik nafas dalam-dalam ya sayang. Awak dah buat yang terbaik hari ni. Rehat secukupnya, esok kita tempuh lagi sama-sama. Abang sentiasa bangga dengan awak.
-              </div>
-            </div>
-
-            <div class="promise-item" onclick="togglePromise(this)">
-              <div class="promise-header">
-                <span>🧁 Buka bila kita dapat jumpa nanti...</span>
-                <span class="toggle-icon">▾</span>
-              </div>
-              <div class="promise-content">
-                Janji pertama: Kita jalan-jalan santai, makan benda sedap favourite awak, dan borak sampai lupa waktu tanpa ada skrin telefon yang pisahkan kita!
-              </div>
-            </div>
-          </div>
-
-          <!-- Signature Section -->
-          <div class="letter-footer-sign">
-            <div class="sign-caption">Yours lovingly,</div>
-            <div class="sign-calligraphy">Always Yours ❤️</div>
-          </div>
-
+        <!-- Photo 1 -->
+        <div class="polaroid-snap">
+          <div class="mini-pin">📌</div>
+          <img src="gambar1.jpg" alt="Kenangan 1" onerror="this.parentElement.style.display='none'">
+          <div class="polaroid-hand-caption">"senyuman favourite yang tak pernah bosan tengok" ✨</div>
         </div>
 
+        <!-- Video 1 -->
+        <div class="polaroid-snap">
+          <div class="mini-tape-corner"></div>
+          <video controls playsinline onerror="this.parentElement.style.display='none'">
+            <source src="video1.mp4" type="video/mp4">
+            Browser tak sokong video.
+          </video>
+          <div class="polaroid-hand-caption">"moment comel yang aku repeat berpuluh kali hahah" 🎬</div>
+        </div>
+
+        <!-- Photo 2 (Boleh tambah gambar kedua: namakan gambar2.jpg) -->
+        <div class="polaroid-snap">
+          <div class="mini-pin">💜</div>
+          <img src="gambar2.jpg" alt="Kenangan 2" onerror="this.parentElement.style.display='none'">
+          <div class="polaroid-hand-caption">"our sweetest little stolen moment" 🌸</div>
+        </div>
+
+        <!-- Photo 3 (Boleh tambah gambar ketiga: namakan gambar3.jpg) -->
+        <div class="polaroid-snap">
+          <div class="mini-tape-corner"></div>
+          <img src="gambar3.jpg" alt="Kenangan 3" onerror="this.parentElement.style.display='none'">
+          <div class="polaroid-hand-caption">"rindu nak lepak macam ni lagi..." 💌</div>
+        </div>
+
+      </div>
+
+      <!-- Real Letter Content -->
+      <div class="paper-letter-box">
+        <p>
+          Mesti kau tengah senyum sinis tengok website scrapbook ni kan haha. 
+        </p>
+        <p>
+          Kau kata nak aku express rasa sayang *through another way* selain asyik belanja makan dengan teks biasa. Kau nak tengok *creative effort* yang aku buat sendiri... so nah, terimalah satu-satunya website scrapbook lavender yang aku siapkan khas dari *scratch* untuk kau simpan.
+        </p>
+        <p>
+          Aku tahu LDR ni memang bukan benda mudah. Kadang-kadang bila jadual masing-masing padat, tak dapat nak *call* atau borak puas-puas tu memang rasa ralat sangat. Tapi jangan sesekali terdetik dalam hati kau yang bila kita jauh, aku lupa or berkurang rasa sayang kat kau.
+        </p>
+        <p>
+          Tiap kali kau acah-acah mengalah awal, merajuk manja, or spam sticker kelakar kau tu, aku perhati je tau. Website ni bukti yang aku memang letak kau nombor satu.
+        </p>
+        <p>
+          Jaga diri baik-baik kat sana ya sayang, jangan skip makan, dan jangan serabut sorang-sorang kalau ada masalah. <strong>Aku sentiasa ada kat sini untuk kau.</strong>
+        </p>
+
+        <div class="sign-box">
+          <div class="sign-text">Always yours,</div>
+          <div class="sign-label">— Mamal Dean ❤️</div>
+        </div>
+      </div>
+
+      <!-- Open When Directives -->
+      <div class="directives-wrapper">
+        <div class="directives-title"><span>💌</span> Pesanan Rahsia Bila Perlu:</div>
+
+        <div class="directive-card" onclick="toggleDirective(this)">
+          <div class="directive-header">
+            <span>🌧️ Bila kau serabut atau penat sangat</span>
+            <span>▾</span>
+          </div>
+          <div class="directive-body">
+            Tarik nafas dalam-dalam dulu ya pwincesss. Kau dah buat yang terbaik hari ni. Kalau tak dapat call, hantar je voice note panjang-panjang, aku dengar semua nanti.
+          </div>
+        </div>
+
+        <div class="directive-card" onclick="toggleDirective(this)">
+          <div class="directive-header">
+            <span>🐴 Bila rindu tapi ego nak mengaku</span>
+            <span>▾</span>
+          </div>
+          <div class="directive-body">
+            Tak payah nak cover ego sangat hahah. Spam je sticker kuda gigit tu sepuluh kali kat WhatsApp, nanti aku faham la mesej tersirat kau tu!
+          </div>
+        </div>
+
+        <div class="directive-card" onclick="toggleDirective(this)">
+          <div class="directive-header">
+            <span>🧁 Bila kita dah dapat jumpa nanti</span>
+            <span>▾</span>
+          </div>
+          <div class="directive-body">
+            Agenda nombor satu: Kita keluar makan makanan favourite kau puas-puas, borak sampai lupa jam, no phone distractions allowed!
+          </div>
+        </div>
       </div>
 
     </div>
+
   </div>
 
   <script>
-    /* ================= 1. AMBIENT CANVAS (Falling Lavender Petals & Star Dust) ================= */
-    const canvas = document.getElementById('ambientCanvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let petals = [];
+    const PASSCODE = "473415";
+    const realInput = document.getElementById('codeInput');
+    const slots = document.querySelectorAll('.code-slot');
+    const errorHint = document.getElementById('errorHint');
+    const codeGrid = document.getElementById('codeGrid');
 
-    function resizeCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    class LavenderPetal {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * -height;
-        this.size = Math.random() * 8 + 5;
-        this.speedY = Math.random() * 1.2 + 0.6;
-        this.speedX = Math.random() * 1.5 - 0.75;
-        this.rotation = Math.random() * 360;
-        this.rotSpeed = Math.random() * 1.5 - 0.75;
-        this.opacity = Math.random() * 0.6 + 0.25;
-        // Soft violet/lavender/pink tones
-        const colors = [
-          'rgba(216, 180, 254, ',
-          'rgba(192, 132, 252, ',
-          'rgba(244, 114, 182, ',
-          'rgba(233, 213, 255, '
-        ];
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-      }
-      update() {
-        this.y += this.speedY;
-        this.x += Math.sin(this.y * 0.01) + this.speedX * 0.5;
-        this.rotation += this.rotSpeed;
-        if (this.y > height + 20) {
-          this.reset();
-          this.y = -10;
-        }
-      }
-      draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate((this.rotation * Math.PI) / 180);
-        ctx.fillStyle = this.color + this.opacity + ')';
-        ctx.beginPath();
-        // Gentle organic petal shape
-        ctx.ellipse(0, 0, this.size * 0.6, this.size * 1.2, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
+    function focusInput() {
+      realInput.focus();
+      updateSlots();
     }
 
-    for (let i = 0; i < 45; i++) {
-      petals.push(new LavenderPetal());
-    }
-
-    function animateCanvas() {
-      ctx.clearRect(0, 0, width, height);
-      for (let p of petals) {
-        p.update();
-        p.draw();
-      }
-      requestAnimationFrame(animateCanvas);
-    }
-    animateCanvas();
-
-    /* ================= 2. AUDIO TOGGLE ================= */
-    let isPlaying = false;
-    const audio = document.getElementById('bgAudio');
-    const musicBtn = document.getElementById('musicBtn');
-
-    function toggleAudio() {
-      if (!isPlaying) {
-        audio.play().then(() => {
-          isPlaying = true;
-          musicBtn.classList.add('playing');
-          musicBtn.innerHTML = '✨';
-        }).catch(() => {});
-      } else {
-        audio.pause();
-        isPlaying = false;
-        musicBtn.classList.remove('playing');
-        musicBtn.innerHTML = '🎵';
-      }
-    }
-
-    /* ================= 3. PASSCODE LOGIC (473415) ================= */
-    const CORRECT_CODE = "473415";
-    const hiddenInput = document.getElementById('hiddenPin');
-    const digitBoxes = document.querySelectorAll('.digit-box');
-    const errorToast = document.getElementById('errorToast');
-    const pinBoxContainer = document.getElementById('pinBoxContainer');
-
-    function focusPinInput() {
-      hiddenInput.focus();
-    }
-
-    hiddenInput.addEventListener('input', (e) => {
+    realInput.addEventListener('input', (e) => {
       const val = e.target.value.replace(/\D/g, '').slice(0, 6);
       e.target.value = val;
-      
-      digitBoxes.forEach((box, i) => {
-        if (val[i]) {
-          box.innerText = "•";
-          box.classList.add('filled');
+
+      slots.forEach((slot, idx) => {
+        if (val[idx]) {
+          slot.innerText = val[idx];
+          slot.classList.add('filled');
         } else {
-          box.innerText = "";
-          box.classList.remove('filled');
+          slot.innerText = '';
+          slot.classList.remove('filled');
         }
       });
+      updateSlots();
 
       if (val.length === 6) {
-        setTimeout(submitPasscode, 250);
+        setTimeout(verifyPin, 200);
       }
     });
 
-    hiddenInput.addEventListener('keyup', (e) => {
-      if (e.key === 'Enter') submitPasscode();
-    });
+    function updateSlots() {
+      const len = realInput.value.length;
+      slots.forEach((slot, idx) => {
+        if (idx === len && len < 6) {
+          slot.classList.add('active');
+        } else {
+          slot.classList.remove('active');
+        }
+      });
+    }
 
-    function submitPasscode() {
-      const entered = hiddenInput.value;
-      if (entered === CORRECT_CODE) {
-        errorToast.style.opacity = '0';
-        // Trigger celebratory confetti burst
+    function verifyPin() {
+      if (realInput.value === PASSCODE) {
+        errorHint.style.display = 'none';
         confetti({
-          particleCount: 80,
+          particleCount: 70,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#c084fc', '#f472b6', '#e9d5ff', '#ffd700']
+          colors: ['#c084fc', '#f472b6', '#a78bfa']
         });
-
-        // Try playing music automatically upon unlock
-        if (!isPlaying) {
-          toggleAudio();
-        }
-
         setTimeout(() => {
-          document.getElementById('stage-passcode').style.display = 'none';
-          document.getElementById('stage-question').style.display = 'block';
-        }, 600);
+          document.getElementById('lock-page').style.display = 'none';
+          document.getElementById('question-page').style.display = 'block';
+        }, 400);
       } else {
-        errorToast.style.opacity = '1';
-        pinBoxContainer.classList.add('shake-anim');
+        errorHint.style.display = 'block';
+        codeGrid.classList.add('shake');
         setTimeout(() => {
-          pinBoxContainer.classList.remove('shake-anim');
-          hiddenInput.value = '';
-          digitBoxes.forEach(b => {
-            b.innerText = '';
-            b.classList.remove('filled');
-          });
-          hiddenInput.focus();
-        }, 500);
+          codeGrid.classList.remove('shake');
+          realInput.value = '';
+          slots.forEach(s => { s.innerText = ''; s.classList.remove('filled'); });
+          focusInput();
+        }, 450);
       }
     }
 
-    // Auto-focus on click anywhere on passcode stage
-    document.getElementById('stage-passcode').addEventListener('click', focusPinInput);
-
-    /* ================= 4. INTERACTIVE "NO" DODGE BUTTON ================= */
     let yesScale = 1;
-    let noCounter = 0;
-    const funnyTexts = [
+    let dodgeCount = 0;
+    const dodgeTexts = [
       "Eh salah tekan ke? 🤨",
-      "Cuba lagi sekali! 😜",
-      "Mana boleh lari! 🏃💨",
-      "Button ni rosak kot! 😝",
-      "Tengok Yes tu dah besar! 🥰"
+      "Mana boleh tekan no! 😜",
+      "Cuba lagi sekali hahah 🏃💨",
+      "Tak boleh lari pwincesss 😝",
+      "Yes dah makin besar tu 🥰"
     ];
 
-    function fleeButton() {
-      const noBtn = document.getElementById('noLoveBtn');
-      const yesBtn = document.getElementById('yesLoveBtn');
-      const arena = document.getElementById('arena');
+    function dodgeNo() {
+      const noBtn = document.getElementById('noBtn');
+      const yesBtn = document.getElementById('yesBtn');
+      const box = document.getElementById('playBox');
 
-      yesScale += 0.32;
+      yesScale += 0.28;
       yesBtn.style.transform = `scale(${yesScale})`;
 
-      noBtn.innerText = funnyTexts[noCounter % funnyTexts.length];
-      noCounter++;
+      noBtn.innerText = dodgeTexts[dodgeCount % dodgeTexts.length];
+      dodgeCount++;
 
-      const arenaRect = arena.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-
-      const maxX = (arenaRect.width - btnRect.width) / 2 - 20;
-      const maxY = 75;
+      const bRect = box.getBoundingClientRect();
+      const nRect = noBtn.getBoundingClientRect();
+      const maxX = (bRect.width - nRect.width) / 2 - 15;
+      const maxY = 65;
 
       const randX = (Math.random() * (maxX * 2)) - maxX;
       const randY = (Math.random() * (maxY * 2)) - maxY;
@@ -1296,47 +719,26 @@
       noBtn.style.transform = `translate(${randX}px, ${randY}px)`;
     }
 
-    function onLoveAccepted() {
+    function openScrapbook() {
       confetti({
-        particleCount: 120,
-        spread: 90,
+        particleCount: 100,
+        spread: 85,
         origin: { y: 0.65 },
-        colors: ['#a855f7', '#ec4899', '#f0abfc', '#d4af37']
+        colors: ['#a855f7', '#ec4899', '#c084fc', '#fdf4ff']
       });
 
       setTimeout(() => {
-        document.getElementById('stage-question').style.display = 'none';
-        const envStage = document.getElementById('stage-envelope');
-        envStage.style.display = 'flex';
-      }, 500);
-    }
-
-    /* ================= 5. ROYAL ENVELOPE UNSEALING ================= */
-    function unsealEnvelope() {
-      const scene = document.getElementById('envScene');
-      if (scene.classList.contains('opened')) return;
-
-      scene.classList.add('opened');
-
-      confetti({
-        particleCount: 70,
-        spread: 60,
-        origin: { y: 0.5 },
-        colors: ['#ffd700', '#f472b6', '#c084fc']
-      });
-
-      // Smooth transition into full aesthetic parchment letter
-      setTimeout(() => {
-        document.getElementById('stage-envelope').style.display = 'none';
-        document.getElementById('stage-letter').style.display = 'block';
+        document.getElementById('question-page').style.display = 'none';
+        document.getElementById('content-page').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 1200);
+      }, 450);
     }
 
-    /* ================= 6. SWEET PROMISES ACCORDION ================= */
-    function togglePromise(elem) {
-      elem.classList.toggle('active');
+    function toggleDirective(card) {
+      card.classList.toggle('open');
     }
+
+    document.addEventListener('DOMContentLoaded', focusInput);
   </script>
 
 </body>
